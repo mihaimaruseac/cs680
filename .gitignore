@@ -1,0 +1,5 @@
+bin/
+test/bin/
+test/src/default/
+test/src/index.html
+test/src/jacoco.exec
