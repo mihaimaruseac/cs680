@@ -5,43 +5,21 @@ import java.util.ArrayList;
 public class Shell {
 	private boolean onGoing;
 	private CommandHistory ch;
+	private static Shell instance = null;
 
-	public Shell() {
+	private Shell() {
 		onGoing = true;
 		ch = new CommandHistory();
 	}
 
-	public void run() {
-		System.out.println("Welcome to MMShell. Type exit or press ^D to exit. Type help for help");
-		loop();
-	}
-
-	public void parseAndExecute(String cmd) throws InvalidCommandException {
-		Command c = parseCommand(cmd);
-		c.execute();
-		if (c.goToHistory())
-			ch.push(c);
+	public static Shell getInstance() {
+		if (instance == null)
+			instance = new Shell();
+		return instance;
 	}
 
 	public void stopShell() {
 		onGoing = false;
-	}
-
-	private void loop() {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-		while (onGoing) {
-			System.out.println("User: " + FileSystem.getInstance().getUser() + ", current dir: " + FileSystem.getInstance().getCurrent().getName() + ", type command below, help for help");
-			try {
-				String line = in.readLine();
-				if (line == null)
-					break;
-				else if (line.length() != 0)
-					parseAndExecute(line);
-			} catch (Exception e) {
-				System.out.println(e);
-				//e.printStackTrace();
-			}
-		}
 	}
 
 	public Command parseCommand(String cmd) throws InvalidCommandException {
@@ -96,7 +74,36 @@ public class Shell {
 		throw new InvalidCommandException(tokens[0] + ": no such command");
 	}
 
+	private void run() {
+		System.out.println("Welcome to MMShell. Type exit or press ^D to exit. Type help for help");
+		loop();
+	}
+
+	private void parseAndExecute(String cmd) throws InvalidCommandException {
+		Command c = parseCommand(cmd);
+		c.execute();
+		if (c.goToHistory())
+			ch.push(c);
+	}
+
+	private void loop() {
+		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		while (onGoing) {
+			System.out.println("User: " + FileSystem.getInstance().getUser() + ", current dir: " + FileSystem.getInstance().getCurrent().getName() + ", type command below, help for help");
+			try {
+				String line = in.readLine();
+				if (line == null)
+					break;
+				else if (line.length() != 0)
+					parseAndExecute(line);
+			} catch (Exception e) {
+				System.out.println(e);
+				//e.printStackTrace();
+			}
+		}
+	}
+
 	public static void main(String args[]) {
-		new Shell().run();
+		Shell.getInstance().run();
 	}
 }
