@@ -59,7 +59,7 @@ public class FileSystem {
 		return s;
 	}
 
-	public void setRoot(Directory root) {
+	private void setRoot(Directory root) {
 		this.root = root;
 	}
 
