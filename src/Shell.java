@@ -28,7 +28,7 @@ public class Shell {
 	private void parseAndExecute(String cmd) throws InvalidCommandException {
 		Command c = CommandFactory.getInstance().getCommand(cmd);
 		c.execute();
-		if (c.goToHistory())
+		if (c.goesToHistory())
 			CommandHistory.getInstance().push(c);
 	}
 

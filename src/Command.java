@@ -6,7 +6,7 @@ public abstract class Command {
 		return false;
 	}
 
-	public boolean goToHistory() {
+	public boolean goesToHistory() {
 		return true;
 	}
 

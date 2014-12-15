@@ -8,7 +8,7 @@ public class HistoryCommand extends Command {
 	}
 
 	@Override
-	public boolean goToHistory() {
+	public boolean goesToHistory() {
 		return false;
 	}
 
