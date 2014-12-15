@@ -1,8 +1,5 @@
 public class ExitCommand extends Command {
-	Shell s;
-
-	public ExitCommand(Shell s) {
-		this.s = s;
+	public ExitCommand() {
 	}
 
 	@Override
@@ -12,6 +9,6 @@ public class ExitCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		s.stopShell();
+		Shell.getInstance().stopShell();
 	}
 }
