@@ -16,8 +16,8 @@ public class CommandFactory {
 
 		switch(tokens[0]) {
 			case "exit": return buildExitCommand(tokens);
+			case "help": return buildHelpCommand(tokens);
 			/*
-			case "help": return new HelpCommand();
 			case "pwd": return new PWDCommand();
 			case "ls": return new LsCommand(tokens);
 			case "dir": return new LsCommand(tokens, true);
@@ -66,5 +66,9 @@ public class CommandFactory {
 
 	private ExitCommand buildExitCommand(String[] tokens) {
 		return new ExitCommand();
+	}
+
+	private HelpCommand buildHelpCommand(String[] tokens) {
+		return new HelpCommand();
 	}
 }
