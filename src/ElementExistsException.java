@@ -1,4 +1,4 @@
-public class ElementExistsException extends Exception {
+public class ElementExistsException extends InvalidCommandException {
 	public ElementExistsException(String message) {
 		super(message);
 	}
