@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class CommandFactory {
 	private static CommandFactory instance = null;
 
@@ -69,6 +71,6 @@ public class CommandFactory {
 	}
 
 	private HelpCommand buildHelpCommand(String[] tokens) {
-		return new HelpCommand();
+		return new HelpCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 }

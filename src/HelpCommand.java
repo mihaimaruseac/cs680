@@ -1,10 +1,15 @@
+import java.util.Arrays;
+
 public class HelpCommand extends Command {
 	String []commands;
 	String []cmndArgs;
 	String []helpText;
 
-	public HelpCommand() {
+	String []args;
+
+	public HelpCommand(String[] args) {
 		setup();
+		this.args = args;
 	}
 
 	@Override
@@ -19,8 +24,36 @@ public class HelpCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		for (int i = 0; i < commands.length; i++)
-			System.out.println(commands[i] + " " + cmndArgs[i] + " " + helpText[i]);
+		if (args.length == 0)
+			for (int i = 0; i < commands.length; i++)
+				System.out.println(commands[i] + " " + cmndArgs[i] + " " + helpText[i]);
+		else
+			for (int i = 0; i < args.length; i++) {
+				int j = Arrays.binarySearch(commands, args[i]);
+				if (j < 0) {
+					/* TODO */
+				} else {
+					System.out.println(commands[j] + " " + cmndArgs[j] + " " + helpText[j]);
+				}
+			}
+	}
+
+	private void setup() {
+		commands = new String[] {
+			"exit",
+			"help",
+		};
+
+		cmndArgs = new String[] {
+			"",
+			"[<cmd_list>]",
+		};
+
+		helpText = new String[] {
+			"leave shell, terminate program",
+			"show help message for all/argument commands",
+		};
+
 		/*
 		System.out.println("Possible shell commands:");
 		System.out.println("\texit\t\t\t\tleave shell");
@@ -43,22 +76,5 @@ public class HelpCommand extends Command {
 		System.out.println("\tchuser <user>\t\t\tchange current user");
 		System.out.println("\tchown <user> <path> [<paths>]\tchange owner of filesystem element(s)");
 		*/
-	}
-
-	private void setup() {
-		commands = new String[] {
-			"exit",
-			"help",
-		};
-
-		cmndArgs = new String[] {
-			"",
-			"[<cmd_list>]",
-		};
-
-		helpText = new String[] {
-			"leave shell, terminate program",
-			"show help message for all/argument commands",
-		};
 	}
 }
