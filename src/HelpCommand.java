@@ -1,5 +1,10 @@
 public class HelpCommand extends Command {
+	String []commands;
+	String []cmndArgs;
+	String []helpText;
+
 	public HelpCommand() {
+		setup();
 	}
 
 	@Override
@@ -14,6 +19,9 @@ public class HelpCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
+		for (int i = 0; i < commands.length; i++)
+			System.out.println(commands[i] + " " + cmndArgs[i] + " " + helpText[i]);
+		/*
 		System.out.println("Possible shell commands:");
 		System.out.println("\texit\t\t\t\tleave shell");
 		System.out.println("\thelp\t\t\t\tshow help (this message)");
@@ -34,5 +42,23 @@ public class HelpCommand extends Command {
 		System.out.println("\t----");
 		System.out.println("\tchuser <user>\t\t\tchange current user");
 		System.out.println("\tchown <user> <path> [<paths>]\tchange owner of filesystem element(s)");
+		*/
+	}
+
+	private void setup() {
+		commands = new String[] {
+			"exit",
+			"help",
+		};
+
+		cmndArgs = new String[] {
+			"",
+			"[<cmd_list>]",
+		};
+
+		helpText = new String[] {
+			"leave shell, terminate program",
+			"show help message for all/argument commands",
+		};
 	}
 }
