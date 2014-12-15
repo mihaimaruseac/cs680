@@ -12,9 +12,10 @@ public class CommandFactory {
 
 	public Command getCommand(String cmd) throws InvalidCommandException {
 		String delims = "[ ]+";
-
 		String[] tokens = cmd.split(delims);
+
 		switch(tokens[0]) {
+			/*
 			case "exit": return new ExitCommand();
 			case "help": return new HelpCommand();
 			case "pwd": return new PWDCommand();
@@ -57,6 +58,7 @@ public class CommandFactory {
 						   throw new InvalidCommandException("Must have exactly two arguments: method and directory");
 					   return new SortCommand(tokens[1], tokens[2]);
 			}
+			*/
 		}
 
 		throw new InvalidCommandException(tokens[0] + ": no such command");
