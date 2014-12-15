@@ -15,8 +15,8 @@ public class CommandFactory {
 		String[] tokens = cmd.split(delims);
 
 		switch(tokens[0]) {
+			case "exit": return buildExitCommand(tokens);
 			/*
-			case "exit": return new ExitCommand();
 			case "help": return new HelpCommand();
 			case "pwd": return new PWDCommand();
 			case "ls": return new LsCommand(tokens);
@@ -62,5 +62,9 @@ public class CommandFactory {
 		}
 
 		throw new InvalidCommandException(tokens[0] + ": no such command");
+	}
+
+	private ExitCommand buildExitCommand(String[] tokens) {
+		return new ExitCommand();
 	}
 }
