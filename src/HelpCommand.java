@@ -26,14 +26,14 @@ public class HelpCommand extends Command {
 	public void execute() throws InvalidCommandException {
 		if (args.length == 0)
 			for (int i = 0; i < commands.length; i++)
-				System.out.println(commands[i] + " " + cmndArgs[i] + " " + helpText[i]);
+				TUIDisplay.simpleDisplayText(commands[i] + " " + cmndArgs[i] + " " + helpText[i]);
 		else
 			for (int i = 0; i < args.length; i++) {
 				int j = Arrays.binarySearch(commands, args[i]);
 				if (j < 0) {
 					/* TODO */
 				} else {
-					System.out.println(commands[j] + " " + cmndArgs[j] + " " + helpText[j]);
+					TUIDisplay.simpleDisplayText(commands[j] + " " + cmndArgs[j] + " " + helpText[j]);
 				}
 			}
 	}

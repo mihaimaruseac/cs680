@@ -21,7 +21,7 @@ public class Shell {
 	}
 
 	private void run() {
-		System.out.println("Welcome to MMShell. Type exit or press ^D to exit. Type help for help");
+		TUIDisplay.simpleDisplayText("Welcome to MMShell. Type exit or press ^D to exit. Type help for help");
 		loop();
 	}
 
@@ -35,7 +35,7 @@ public class Shell {
 	private void loop() {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		while (onGoing) {
-			System.out.println("User: " + FileSystem.getInstance().getUser()
+			TUIDisplay.simpleDisplayText("User: " + FileSystem.getInstance().getUser()
 					+ ", current dir: " + FileSystem.getInstance().getCurrent().getName()
 					+ ", type command below, help for help");
 			try {
@@ -45,7 +45,7 @@ public class Shell {
 				else if (line.length() != 0)
 					parseAndExecute(line);
 			} catch (Exception e) {
-				System.out.println(e);
+				TUIDisplay.simpleDisplayText(e.getMessage());
 			}
 		}
 	}
