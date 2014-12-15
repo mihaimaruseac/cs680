@@ -1,18 +1,7 @@
 import java.util.Arrays;
 
-public class CommandFactory {
-	private static CommandFactory instance = null;
-
-	private CommandFactory() {
-	}
-
-	public static CommandFactory getInstance() {
-		if (instance == null)
-			instance = new CommandFactory();
-		return instance;
-	}
-
-	public Command getCommand(String cmd) throws InvalidCommandException {
+public abstract class CommandFactory {
+	public static Command getCommand(String cmd) throws InvalidCommandException {
 		String delims = "[ ]+";
 		String[] tokens = cmd.split(delims);
 
@@ -66,11 +55,11 @@ public class CommandFactory {
 		throw new InvalidCommandException(tokens[0] + ": no such command");
 	}
 
-	private ExitCommand buildExitCommand(String[] tokens) {
+	private static ExitCommand buildExitCommand(String[] tokens) {
 		return new ExitCommand();
 	}
 
-	private HelpCommand buildHelpCommand(String[] tokens) {
+	private static HelpCommand buildHelpCommand(String[] tokens) {
 		return new HelpCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 }
