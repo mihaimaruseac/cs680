@@ -1,8 +1,5 @@
 public class RedoCommand extends Command {
-	Command cmd;
-
-	public RedoCommand(Command cmd) {
-		this.cmd = cmd;
+	public RedoCommand() {
 	}
 
 	@Override
@@ -12,6 +9,6 @@ public class RedoCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		cmd.execute();
+		CommandHistory.getInstance().peek().execute();
 	}
 }

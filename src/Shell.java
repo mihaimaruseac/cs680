@@ -3,13 +3,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Shell {
-	private boolean onGoing;
-	private CommandHistory ch;
 	private static Shell instance = null;
+	private boolean onGoing;
 
 	private Shell() {
 		onGoing = true;
-		ch = new CommandHistory();
 	}
 
 	public static Shell getInstance() {
@@ -36,9 +34,9 @@ public class Shell {
 			case "rmdir": return new RmDirCommand(tokens);
 			case "touch": return new MkFileCommand(tokens);
 			case "rm": return new RmFileCommand(tokens);
-			case "history": return new HistoryCommand(ch);
-			case "redo": return new RedoCommand(ch.peek());
-			case "undo": return new UndoCommand(ch.peek());
+			case "history": return new HistoryCommand();
+			case "redo": return new RedoCommand();
+			case "undo": return new UndoCommand();
 
 			case "cd": {
 					   if (tokens.length == 1)
@@ -83,7 +81,7 @@ public class Shell {
 		Command c = parseCommand(cmd);
 		c.execute();
 		if (c.goToHistory())
-			ch.push(c);
+			CommandHistory.getInstance().push(c);
 	}
 
 	private void loop() {

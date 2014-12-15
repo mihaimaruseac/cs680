@@ -1,11 +1,18 @@
 import java.util.Stack;
 
 public class CommandHistory {
-	public final int MAX_COMMAND_SIZE = 10;
+	public final static int MAX_COMMAND_SIZE = 10;
+	private static CommandHistory instance = null;
 	Stack<Command> commands;
 
-	public CommandHistory() {
+	private CommandHistory() {
 		commands = new Stack<Command>();
+	}
+
+	public static CommandHistory getInstance() {
+		if (instance == null)
+			instance = new CommandHistory();
+		return instance;
 	}
 
 	public void push(Command c) {

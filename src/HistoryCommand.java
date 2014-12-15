@@ -1,8 +1,5 @@
 public class HistoryCommand extends Command {
-	CommandHistory ch;
-
-	public HistoryCommand(CommandHistory ch) {
-		this.ch = ch;
+	public HistoryCommand() {
 	}
 
 	@Override
@@ -17,6 +14,6 @@ public class HistoryCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		ch.printCommands();
+		CommandHistory.getInstance().printCommands();
 	}
 }

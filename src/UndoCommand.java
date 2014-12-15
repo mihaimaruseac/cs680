@@ -1,8 +1,5 @@
 public class UndoCommand extends Command {
-	Command cmd;
-
-	public UndoCommand(Command cmd) {
-		this.cmd = cmd;
+	public UndoCommand() {
 	}
 
 	@Override
@@ -17,6 +14,6 @@ public class UndoCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		cmd.executeUndo();
+		CommandHistory.getInstance().peek().executeUndo();
 	}
 }
