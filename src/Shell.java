@@ -35,7 +35,9 @@ public class Shell {
 	private void loop() {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		while (onGoing) {
-			System.out.println("User: " + FileSystem.getInstance().getUser() + ", current dir: " + FileSystem.getInstance().getCurrent().getName() + ", type command below, help for help");
+			System.out.println("User: " + FileSystem.getInstance().getUser()
+					+ ", current dir: " + FileSystem.getInstance().getCurrent().getName()
+					+ ", type command below, help for help");
 			try {
 				String line = in.readLine();
 				if (line == null)
@@ -44,7 +46,6 @@ public class Shell {
 					parseAndExecute(line);
 			} catch (Exception e) {
 				System.out.println(e);
-				//e.printStackTrace();
 			}
 		}
 	}
