@@ -46,6 +46,7 @@ public class Shell {
 					parseAndExecute(line);
 			} catch (Exception e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
+				e.printStackTrace();
 			}
 		}
 	}
