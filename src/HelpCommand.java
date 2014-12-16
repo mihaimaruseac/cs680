@@ -24,11 +24,12 @@ public class HelpCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws CommandHelpNotFoundException {
 		if (args.length == 0)
 			TUIDisplay.arrayDisplayText(commands);
 		else {
 			ArrayList<ArrayList<String>> columns = new ArrayList<ArrayList<String>>();
+			ArrayList<String> notFounds = new ArrayList<String>();
 
 			for (int i = 0; i < 3; i++)
 				columns.add(new ArrayList<String>());
@@ -36,7 +37,7 @@ public class HelpCommand extends Command {
 			for (String arg : args) {
 				int i = Arrays.binarySearch(commands, arg);
 				if (i < 0) {
-					/* TODO */
+					notFounds.add(arg);
 				} else {
 					columns.get(0).add(commands[i]);
 					columns.get(1).add(cmndArgs[i]);
@@ -45,7 +46,19 @@ public class HelpCommand extends Command {
 			}
 
 			TUIDisplay.columnDisplayText(columns);
+			if (notFounds.size() > 0)
+				showErrors(notFounds);
 		}
+	}
+
+	private void showErrors(ArrayList<String> notFounds) throws CommandHelpNotFoundException {
+		String cnfHelp = ": command help not found\n";
+		String err = "";
+
+		for (String cnf : notFounds)
+			err += cnf + cnfHelp;
+
+		throw new CommandHelpNotFoundException(err);
 	}
 
 	private void setup() {
