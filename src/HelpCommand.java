@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HelpCommand extends Command {
@@ -25,17 +26,26 @@ public class HelpCommand extends Command {
 	@Override
 	public void execute() throws InvalidCommandException {
 		if (args.length == 0)
-			for (int i = 0; i < commands.length; i++)
-				TUIDisplay.simpleDisplayText(commands[i] + " " + cmndArgs[i] + " " + helpText[i]);
-		else
-			for (int i = 0; i < args.length; i++) {
-				int j = Arrays.binarySearch(commands, args[i]);
-				if (j < 0) {
+			TUIDisplay.arrayDisplayText(commands);
+		else {
+			ArrayList<ArrayList<String>> columns = new ArrayList<ArrayList<String>>();
+
+			for (int i = 0; i < 3; i++)
+				columns.add(new ArrayList<String>());
+
+			for (String arg : args) {
+				int i = Arrays.binarySearch(commands, arg);
+				if (i < 0) {
 					/* TODO */
 				} else {
-					TUIDisplay.simpleDisplayText(commands[j] + " " + cmndArgs[j] + " " + helpText[j]);
+					columns.get(0).add(commands[i]);
+					columns.get(1).add(cmndArgs[i]);
+					columns.get(2).add(helpText[i]);
 				}
 			}
+
+			TUIDisplay.columnDisplayText(columns);
+		}
 	}
 
 	private void setup() {
