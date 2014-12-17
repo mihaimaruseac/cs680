@@ -15,7 +15,12 @@ public class HelpCommand extends Command {
 
 	@Override
 	public String getCommandLine() {
-		return "help";
+		String cmdLine = "help";
+
+		for (String s : args)
+			cmdLine += " " + s;
+
+		return cmdLine;
 	}
 
 	@Override
