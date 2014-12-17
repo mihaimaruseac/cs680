@@ -77,6 +77,7 @@ public class HelpCommand extends Command {
 			"history@@show command history",
 			"pwd@@show current directory",
 			"redo@@redo last command",
+			"undo@@undo last command",
 		}) {
 			String delim="@";
 			String []parts = s.split(delim);
