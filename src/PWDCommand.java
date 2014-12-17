@@ -9,6 +9,7 @@ public class PWDCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		System.out.println(FileSystem.getInstance().getCurrent().getName());
+		FileSystem fs = FileSystem.getInstance();
+		System.out.println(fs.getName(fs.getCurrent()));
 	}
 }

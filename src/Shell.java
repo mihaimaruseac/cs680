@@ -34,9 +34,10 @@ public class Shell {
 
 	private void loop() {
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+		FileSystem fs = FileSystem.getInstance();
 		while (onGoing) {
-			TUIDisplay.simpleDisplayText("User: " + FileSystem.getInstance().getUser()
-					+ ", current dir: " + FileSystem.getInstance().getCurrent().getName()
+			TUIDisplay.simpleDisplayText("User: " + fs.getUser()
+					+ ", current dir: " + fs.getName(fs.getCurrent())
 					+ ", type command below, help for help");
 			try {
 				String line = in.readLine();

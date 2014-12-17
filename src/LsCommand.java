@@ -56,7 +56,7 @@ public class LsCommand extends Command {
 		else
 			for (String path: paths) {
 				FSElement element = fs.resolvePath(fs.getCurrent(), path);
-				if (element.isLeaf())
+				if (fs.isLeaf(element))
 					els.add(element);
 				else
 					addContentsOfDir(els, (Directory)element);

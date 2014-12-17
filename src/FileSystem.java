@@ -95,6 +95,14 @@ public class FileSystem {
 		return dir.getChildren();
 	}
 
+	public boolean isLeaf(FSElement element) {
+		return element.isLeaf();
+	}
+
+	public String getName(FSElement element) {
+		return element.getName();
+	}
+
 	/*
 	public void removeDirectory(Directory parent, String name) throws InvalidCommandException {
 		parent.removeDirectory(name);
