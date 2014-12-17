@@ -73,6 +73,7 @@ public class HelpCommand extends Command {
 
 		for (String s : new String[] {
 			"cd@<dir>@change current directory",
+			"chown@<user> <path> [<path_list>]@change owner of filesystem element(s)",
 			"chuser@<user>@change current user",
 			"dir@[<paths>]@show detailed contents of paths",
 			"exit@@leave shell, terminate program",
@@ -97,7 +98,6 @@ public class HelpCommand extends Command {
 		System.out.println("\trm <file> [<files>]\t\tremove files in current directory");
 		System.out.println("\trmdir <dir> [<dirs>]\t\tremove empty directories in current directory");
 		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");
-		System.out.println("\tchown <user> <path> [<paths>]\tchange owner of filesystem element(s)");
 		*/
 	}
 }

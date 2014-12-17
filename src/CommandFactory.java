@@ -7,6 +7,7 @@ public abstract class CommandFactory {
 
 		switch(tokens[0]) {
 			case "cd": return buildCdCommand(tokens);
+			case "chown": return buildChOwnCommand(tokens);
 			case "chuser": return buildChUserCommand(tokens);
 			case "dir": return buildLsCommand(tokens, true);
 			case "exit": return buildExitCommand(tokens);
@@ -21,12 +22,6 @@ public abstract class CommandFactory {
 			/*
 			case "rmdir": return new RmDirCommand(tokens);
 			case "rm": return new RmFileCommand(tokens);
-
-			case "chown": {
-					   if (tokens.length <= 2)
-						   throw new InvalidCommandException("Must have at least two arguments: user and one path");
-					   return new ChOwnCommand(tokens);
-			}
 
 			case "ln": {
 					   if (tokens.length != 3)
@@ -49,6 +44,12 @@ public abstract class CommandFactory {
 		if (tokens.length == 1)
 			return new CdCommand();
 		return new CdCommand(tokens[1]);
+	}
+
+	private static ChOwnCommand buildChOwnCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length <= 2)
+			throw new InvalidArgumentsCommandException("Must have at least two arguments: user and one path");
+		return new ChOwnCommand(tokens);
 	}
 
 	private static ChUserCommand buildChUserCommand(String[] tokens) throws InvalidArgumentsCommandException {

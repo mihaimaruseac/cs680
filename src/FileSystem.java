@@ -81,11 +81,9 @@ public class FileSystem {
 		return user;
 	}
 
-	/*
 	public void setOwner(FSElement element, String user) {
 		element.setOwner(user);
 	}
-	*/
 
 	public String getOwner(FSElement element) {
 		return element.getOwner();
