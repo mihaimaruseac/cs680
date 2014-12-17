@@ -1,10 +1,10 @@
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class HelpCommand extends Command {
-	String []commands;
-	String []cmndArgs;
-	String []helpText;
+	ArrayList<String> commands;
+	ArrayList<String> cmndArgs;
+	ArrayList<String> helpText;
 
 	String []args;
 
@@ -40,13 +40,13 @@ public class HelpCommand extends Command {
 				columns.add(new ArrayList<String>());
 
 			for (String arg : args) {
-				int i = Arrays.binarySearch(commands, arg);
+				int i = Collections.binarySearch(commands, arg);
 				if (i < 0) {
 					notFounds.add(arg);
 				} else {
-					columns.get(0).add(commands[i]);
-					columns.get(1).add(cmndArgs[i]);
-					columns.get(2).add(helpText[i]);
+					columns.get(0).add(commands.get(i));
+					columns.get(1).add(cmndArgs.get(i));
+					columns.get(2).add(helpText.get(i));
 				}
 			}
 
@@ -67,26 +67,22 @@ public class HelpCommand extends Command {
 	}
 
 	private void setup() {
-		commands = new String[] {
-			"exit",
-			"help",
-			"history",
-			"pwd",
-		};
+		commands = new ArrayList<String>();
+		cmndArgs = new ArrayList<String>();
+		helpText = new ArrayList<String>();
 
-		cmndArgs = new String[] {
-			"",
-			"[<cmd_list>]",
-			"",
-			"",
-		};
-
-		helpText = new String[] {
-			"leave shell, terminate program",
-			"show help message for all/argument commands",
-			"show command history",
-			"show current directory",
-		};
+		for (String s : new String[] {
+			"exit@@leave shell, terminate program",
+			"help@[<cmd_list>]@show help message for all/argument commands",
+			"history@@show command history",
+			"pwd@@show current directory",
+		}) {
+			String delim="@";
+			String []parts = s.split(delim);
+			commands.add(parts[0]);
+			cmndArgs.add(parts[1]);
+			helpText.add(parts[2]);
+		}
 
 		/*
 		System.out.println("\tredo\t\t\t\tredo last command");
