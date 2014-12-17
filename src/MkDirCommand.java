@@ -24,11 +24,11 @@ public class MkDirCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		/*
 		FileSystem fs = FileSystem.getInstance();
 		Directory current = fs.getCurrent();
 		String owner = fs.getUser();
 
+		/*
 		try {
 			for (String name : dirs)
 				fs.addChild(current, new Directory(name, current, owner));
