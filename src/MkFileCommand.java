@@ -1,16 +1,16 @@
 import java.lang.StringBuilder;
 import java.util.ArrayList;
 
-public class MkDirCommand extends Command {
-	ArrayList<String> dirs;
+public class MkFileCommand extends Command {
+	ArrayList<String> files;
 	String cmdLine;
 
-	public MkDirCommand(String[] args) {
-		StringBuilder sb = new StringBuilder("mkdir");
-		dirs = new ArrayList<String>();
+	public MkFileCommand(String[] args) {
+		StringBuilder sb = new StringBuilder("touch");
+		files = new ArrayList<String>();
 
 		for (String s: args) {
-			dirs.add(s);
+			files.add(s);
 			sb.append(" " + s);
 		}
 
@@ -27,9 +27,9 @@ public class MkDirCommand extends Command {
 		FileSystem fs = FileSystem.getInstance();
 		String errors = "";
 
-		for (String name : dirs)
+		for (String name : files)
 			try {
-				fs.createDirectory(name);
+				fs.createFile(name);
 			} catch (ElementExistsException e) {
 				errors += name + " ";
 			}
@@ -49,8 +49,8 @@ public class MkDirCommand extends Command {
 		FileSystem fs = FileSystem.getInstance();
 		Directory current = fs.getCurrent();
 
-		for (String name : dirs)
-			fs.removeDirectory(current, name);
+		for (String name : files)
+			fs.removeLeaf(current, name);
 		*/
 	}
 }

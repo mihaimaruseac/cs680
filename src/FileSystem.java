@@ -123,6 +123,12 @@ public class FileSystem {
 		getCurrent().modify();
 	}
 
+	public void createFile(String name) throws ElementExistsException {
+		File f = new File(name, getCurrent(), getUser(), 0);
+		getCurrent().addChild(f);
+		getCurrent().modify();
+	}
+
 	/*
 	public void removeDirectory(Directory parent, String name) throws InvalidCommandException {
 		parent.removeDirectory(name);

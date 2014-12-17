@@ -78,9 +78,10 @@ public class HelpCommand extends Command {
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
 			"ls@[<paths>]@show summary contents of paths",
-			"mkdir@<dir> [<dir_list>]@create directory in current directory",
+			"mkdir@<dir> [<dir_list>]@create directory(ies) in current directory",
 			"pwd@@show current directory",
 			"redo@@redo last command",
+			"touch@<file> [<file_list>]@create file(s) in current directory",
 			"undo@@undo last command",
 		}) {
 			String delim="@";
