@@ -36,6 +36,10 @@ public class Directory extends FSElement {
 		return false;
 	}
 
+	public boolean isEmpty() {
+		return children.size() == 0;
+	}
+
 	/* Keep sorted alphabetically */
 	public void addChild(FSElement child) throws ElementExistsException {
 		int ix = Collections.binarySearch(children, child, getNameComparator());

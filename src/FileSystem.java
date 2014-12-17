@@ -111,6 +111,10 @@ public class FileSystem {
 		return element.isLink();
 	}
 
+	public boolean isEmptyDir(Directory dir) {
+		return dir.isEmpty();
+	}
+
 	public FSElement getTarget(Link element) {
 		return element.getTarget();
 	}

@@ -31,6 +31,7 @@ public class ChOwnCommand extends Command {
 	@Override
 	public void execute() throws MultipleExceptionsException {
 		/*
+		 * TODO:
 		FileSystem fs = FileSystem.getInstance();
 		String errors = "";
 
@@ -62,6 +63,7 @@ public class ChOwnCommand extends Command {
 	@Override
 	public void executeUndo() throws MultipleExceptionsException {
 		/*
+		 * TODO:
 		FileSystem fs = FileSystem.getInstance();
 
 		for (int i = 0; i < owners.size(); i++)

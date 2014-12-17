@@ -30,7 +30,6 @@ public class HelpCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
-		/*
 		if (args.length == 0)
 			TUIDisplay.arrayDisplayText(commands);
 		else {
@@ -52,20 +51,13 @@ public class HelpCommand extends Command {
 			}
 
 			TUIDisplay.columnDisplayText(columns);
-			if (notFounds.size() > 0)
-				showErrors(notFounds);
+			if (notFounds.size() > 0) {
+				MultipleExceptionsException up = new MultipleExceptionsException();
+				for (String cnf : notFounds)
+					up.addException(new CommandHelpNotFoundException(cnf));
+				throw up;
+			}
 		}
-		*/
-	}
-
-	private void showErrors(ArrayList<String> notFounds) throws CommandHelpNotFoundException {
-		String cnfHelp = ": command help not found\n";
-		String err = "";
-
-		for (String cnf : notFounds)
-			err += cnf + cnfHelp;
-
-		throw new CommandHelpNotFoundException(err);
 	}
 
 	private void setup() {
@@ -82,12 +74,12 @@ public class HelpCommand extends Command {
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
 			"ls@[<paths>]@show summary contents of paths",
-			"mkdir@<dir> [<dir_list>]@create directory(ies) in current directory",
+			"mkdir@<dir> [<dir_list>]@create directory(ies)",
 			"pwd@@show current directory",
 			"redo@@redo last command",
-			"rm@<file> [<file_list>]@remove files in current directory",
-			"rmdir@<dir> [<dir_list>]@remove empty directories in current directory",
-			"touch@<file> [<file_list>]@create file(s) in current directory",
+			"rm@<file> [<file_list>]@remove file(s)",
+			"rmdir@<dir> [<dir_list>]@remove empty directory(ies)",
+			"touch@<file> [<file_list>]@create file(s)",
 			"undo@@undo last command",
 		}) {
 			String delim="@";

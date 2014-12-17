@@ -5,7 +5,7 @@ public class LsCommand extends Command {
 	ArrayList<String> paths;
 	String cmdLine;
 	boolean detailed;
-	String errMsg;
+	MultipleExceptionsException up;
 
 	public LsCommand(String[] args) {
 		this(args, false);
@@ -23,7 +23,6 @@ public class LsCommand extends Command {
 		}
 
 		cmdLine = sb.toString();
-		errMsg = "";
 	}
 
 	@Override
@@ -33,7 +32,6 @@ public class LsCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
-		/*
 		ArrayList<FSElement> elements = getElementsToDisplay();
 
 		if (detailed)
@@ -41,9 +39,8 @@ public class LsCommand extends Command {
 		else
 			showShortInfo(elements);
 
-		if (errMsg.length() > 0)
-			throw new InvalidPathException(errMsg);
-			*/
+		if (up != null)
+			throw up;
 	}
 
 	private void showDetailedInfo(ArrayList<FSElement> elements) {
@@ -96,7 +93,9 @@ public class LsCommand extends Command {
 				try {
 					element = fs.resolvePath(path);
 				} catch (InvalidPathException e) {
-					errMsg += path + " ";
+					if (up == null)
+						up = new MultipleExceptionsException();
+					up.addException(e);
 					continue;
 				}
 

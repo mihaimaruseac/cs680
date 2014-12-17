@@ -24,20 +24,56 @@ public class MkDirCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
-		/*
 		FileSystem fs = FileSystem.getInstance();
-		String errors = "";
+		MultipleExceptionsException up = null;
 
-		for (String name : dirs)
-			try {
-				fs.createDirectory(name);
-			} catch (ElementExistsException e) {
-				errors += name + " ";
+		for (String name : dirs) {
+			Directory current = fs.getCurrent();
+
+			int sepIx = name.lastIndexOf("/");
+			String dirName, newName;
+			FSElement parentDir = null;
+
+			if (sepIx == -1) {
+				dirName = ".";
+				newName = name;
+			} else {
+				dirName = name.substring(0, sepIx);
+				newName = name.substring(sepIx + 1);
 			}
 
-		if (errors.length() > 0)
-			throw new ElementExistsException(errors);
-			*/
+			try {
+				parentDir = fs.resolvePath(dirName);
+			} catch (InvalidPathException e) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(e);
+				continue;
+			}
+
+			if (fs.isLeaf(parentDir)) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(new InvalidArgumentsCommandException(parentDir.getName() + ": not a directory"));
+				continue;
+			}
+
+			fs.setCurrent((Directory)parentDir);
+
+			try {
+				fs.createDirectory(newName);
+			} catch (ElementExistsException e) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(e);
+				continue;
+			}
+
+			fs.setCurrent(current);
+		}
+
+		if (up != null)
+			throw up;
 	}
 
 	@Override

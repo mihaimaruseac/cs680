@@ -24,9 +24,8 @@ public class RmDirCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
-		/*
 		FileSystem fs = FileSystem.getInstance();
-		String errors = "";
+		MultipleExceptionsException up = null;
 
 		for (String path : dirs) {
 			FSElement element = null;
@@ -34,15 +33,30 @@ public class RmDirCommand extends Command {
 			try {
 				element = fs.resolvePath(path);
 			} catch (InvalidPathException e) {
-				errors += path + " ";
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(e);
+				continue;
+			}
+
+			if (fs.isLeaf(element)) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(new InvalidArgumentsCommandException(path + ": not a directory"));
+				continue;
+			}
+
+			if (!fs.isEmptyDir((Directory)element)) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(new InvalidArgumentsCommandException(path + ": not an empty directory"));
 				continue;
 			}
 
 			fs.remove(element);
 		}
 
-		if (errors.length() > 0)
-			throw new InvalidPathException(errors);
-			*/
+		if (up != null)
+			throw up;
 	}
 }

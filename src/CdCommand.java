@@ -21,18 +21,27 @@ public class CdCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
-		/*
 		FileSystem fs = FileSystem.getInstance();
-		FSElement now = fs.resolvePath(path);
+		FSElement now = null;
 
-		if (now.isLeaf())
-			throw new InvalidArgumentsCommandException(path + ": not a directory");
+		try {
+			now = fs.resolvePath(path);
+		} catch (InvalidPathException e) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(e);
+			throw up;
+		}
+
+		if (now.isLeaf()) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(new InvalidArgumentsCommandException(path + ": not a directory"));
+			throw up;
+		}
 
 		dir = (Directory)now;
 		lastDir = fs.getCurrent();
 
 		FileSystem.getInstance().setCurrent(dir);
-		*/
 	}
 
 	@Override
@@ -42,8 +51,6 @@ public class CdCommand extends Command {
 
 	@Override
 	public void executeUndo() throws MultipleExceptionsException {
-		/*
 		FileSystem.getInstance().setCurrent(lastDir);
-		*/
 	}
 }
