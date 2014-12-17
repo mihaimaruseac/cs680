@@ -6,6 +6,7 @@ public abstract class CommandFactory {
 		String[] tokens = cmd.split(delims);
 
 		switch(tokens[0]) {
+			case "chuser": return buildChUserCommand(tokens);
 			case "exit": return buildExitCommand(tokens);
 			case "help": return buildHelpCommand(tokens);
 			case "history": return buildHistoryCommand(tokens);
@@ -24,12 +25,6 @@ public abstract class CommandFactory {
 					   if (tokens.length == 1)
 						   return new CdCommand();
 					   return new CdCommand(tokens[1]);
-			}
-
-			case "chuser": {
-					   if (tokens.length != 2)
-						   throw new InvalidCommandException("Must have exactly one argument for the new user");
-					   return new ChUserCommand(tokens[1]);
 			}
 
 			case "chown": {
@@ -55,6 +50,12 @@ public abstract class CommandFactory {
 		throw new InvalidCommandException(tokens[0] + ": no such command");
 	}
 
+	private static ChUserCommand buildChUserCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length != 2)
+			throw new InvalidArgumentsCommandException("Must have exactly one argument for the new user");
+		return new ChUserCommand(tokens[1]);
+	}
+
 	private static ExitCommand buildExitCommand(String[] tokens) {
 		return new ExitCommand();
 	}
@@ -63,12 +64,12 @@ public abstract class CommandFactory {
 		return new HelpCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 
-	private static PWDCommand buildPWDCommand(String[] tokens) {
-		return new PWDCommand();
-	}
-
 	private static HistoryCommand buildHistoryCommand(String[] tokens) {
 		return new HistoryCommand();
+	}
+
+	private static PWDCommand buildPWDCommand(String[] tokens) {
+		return new PWDCommand();
 	}
 
 	private static RedoCommand buildRedoCommand(String[] tokens) {

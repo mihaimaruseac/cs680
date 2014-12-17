@@ -3,4 +3,3 @@ public class NotUndoableCommandException extends InvalidCommandException {
 		super("Cannot undo previous command: not possible to undo");
 	}
 }
-

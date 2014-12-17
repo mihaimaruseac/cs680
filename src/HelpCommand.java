@@ -72,6 +72,7 @@ public class HelpCommand extends Command {
 		helpText = new ArrayList<String>();
 
 		for (String s : new String[] {
+			"chuser@<user>@change current user",
 			"exit@@leave shell, terminate program",
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
@@ -96,7 +97,6 @@ public class HelpCommand extends Command {
 		System.out.println("\trmdir <dir> [<dirs>]\t\tremove empty directories in current directory");
 		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");
 		System.out.println("\ttouch <file> [<files>]\t\tcreate files in current directory");
-		System.out.println("\tchuser <user>\t\t\tchange current user");
 		System.out.println("\tchown <user> <path> [<paths>]\tchange owner of filesystem element(s)");
 		*/
 	}
