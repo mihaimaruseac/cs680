@@ -83,12 +83,18 @@ public class MkDirCommand extends Command {
 
 	@Override
 	public void executeUndo() throws MultipleExceptionsException {
-		/*
-		FileSystem fs = FileSystem.getInstance();
-		Directory current = fs.getCurrent();
+		String rm = "rmdir";
 
-		for (String name : dirs)
-			fs.removeDirectory(current, name);
-		*/
+		for (String dir: dirs)
+			rm += " " + dir;
+
+		try {
+			Command c = CommandFactory.getCommand(rm);
+			c.execute();
+		} catch (InvalidCommandException e) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(e);
+			throw up;
+		}
 	}
 }

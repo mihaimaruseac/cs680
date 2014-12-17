@@ -83,12 +83,18 @@ public class MkFileCommand extends Command {
 
 	@Override
 	public void executeUndo() throws MultipleExceptionsException {
-		/*
-		FileSystem fs = FileSystem.getInstance();
-		Directory current = fs.getCurrent();
+		String rm = "rm";
 
-		for (String name : files)
-			fs.removeLeaf(current, name);
-		*/
+		for (String file: files)
+			rm += " " + file;
+
+		try {
+			Command c = CommandFactory.getCommand(rm);
+			c.execute();
+		} catch (InvalidCommandException e) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(e);
+			throw up;
+		}
 	}
 }
