@@ -89,11 +89,13 @@ public class FileSystem {
 	public void addChild(Directory parent, FSElement child) throws ElementExistsException {
 		parent.addChild(child);
 	}
+	*/
 
 	public ArrayList<FSElement> getChildren(Directory dir) {
 		return dir.getChildren();
 	}
 
+	/*
 	public void removeDirectory(Directory parent, String name) throws InvalidCommandException {
 		parent.removeDirectory(name);
 	}

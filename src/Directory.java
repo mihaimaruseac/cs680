@@ -88,11 +88,11 @@ public class Directory extends FSElement {
 
 		children.remove(found);
 	}
+	*/
 
 	public ArrayList<FSElement> getChildren() {
 		return children;
 	}
-	*/
 
 	@Override
 	public void accept(FSVisitor v) {
