@@ -1,10 +1,10 @@
-public class RedoCommand extends Command {
-	public RedoCommand() {
+public class UndoCommand extends Command {
+	public UndoCommand() {
 	}
 
 	@Override
 	public String getCommandLine() {
-		return "redo";
+		return "undo";
 	}
 
 	@Override
@@ -17,6 +17,6 @@ public class RedoCommand extends Command {
 		Command c = CommandHistory.getInstance().peek();
 		if (c == null)
 			throw new EmptyHistoryException();
-		c.execute();
+		c.executeUndo();
 	}
 }

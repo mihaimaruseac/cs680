@@ -22,7 +22,9 @@ public class CommandHistory {
 	}
 
 	public Command peek() {
-		return commands.peek();
+		if (commands.size() > 0)
+			return commands.peek();
+		return null;
 	}
 
 	public void printCommands() {

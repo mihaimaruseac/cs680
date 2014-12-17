@@ -11,6 +11,6 @@ public abstract class Command {
 	}
 
 	public void executeUndo() throws InvalidCommandException {
-		throw new InvalidCommandException("Command cannot be undone. Sorry");
+		throw new NotUndoableCommandException();
 	}
 }

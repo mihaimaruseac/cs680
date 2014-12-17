@@ -11,6 +11,7 @@ public abstract class CommandFactory {
 			case "history": return buildHistoryCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
+			case "undo": return buildUndoCommand(tokens);
 			/*
 			case "ls": return new LsCommand(tokens);
 			case "dir": return new LsCommand(tokens, true);
@@ -73,5 +74,9 @@ public abstract class CommandFactory {
 
 	private static RedoCommand buildRedoCommand(String[] tokens) {
 		return new RedoCommand();
+	}
+
+	private static UndoCommand buildUndoCommand(String[] tokens) {
+		return new UndoCommand();
 	}
 }
