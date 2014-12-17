@@ -37,6 +37,7 @@ public class Directory extends FSElement {
 	}
 
 	/* Keep sorted alphabetically */
+	/*
 	public void addChild(FSElement child) throws ElementExistsException {
 		int ix = Collections.binarySearch(children, child, getNameComparator());
 
@@ -45,16 +46,18 @@ public class Directory extends FSElement {
 
 		children.add(-(ix + 1), child);
 	}
+	*/
 
-	public FSElement getElement(String name) throws InvalidCommandException {
+	public FSElement getElement(String name) throws InvalidPathException {
 		int ix = Collections.binarySearch(children, new Directory(name, null, null), getNameComparator());
 
 		if (ix < 0)
-			throw new InvalidCommandException(name + " : doesn't exist");
+			throw new InvalidPathException(name);
 
 		return children.get(ix);
 	}
 
+	/*
 	public void removeDirectory(String name) throws InvalidCommandException {
 		int ix = Collections.binarySearch(children, new Directory(name, null, null), getNameComparator());
 
@@ -89,6 +92,7 @@ public class Directory extends FSElement {
 	public ArrayList<FSElement> getChildren() {
 		return children;
 	}
+	*/
 
 	@Override
 	public void accept(FSVisitor v) {

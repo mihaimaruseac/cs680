@@ -61,10 +61,6 @@ public class FileSystem {
 	}
 	*/
 
-	private void setRoot(Directory root) {
-		this.root = root;
-	}
-
 	public Directory getRoot() {
 		return root;
 	}
@@ -105,26 +101,16 @@ public class FileSystem {
 	public void removeLeaf(Directory parent, String name) throws InvalidCommandException {
 		parent.removeLeaf(name);
 	}
+	*/
 
-	public Directory getParent(Directory cwd) {
-		Directory parent = cwd.getParent();
-		if (parent == null)
-			parent = cwd;
-		return parent;
-	}
-
-	public FSElement getElement(Directory cwd, String name) throws InvalidCommandException {
-		return cwd.getElement(name);
-	}
-
-	public FSElement resolvePath(Directory cwd, String path) throws InvalidCommandException {
+	public FSElement resolvePath(Directory cwd, String path) throws InvalidPathException {
 		String delims = "[/]+";
 		String[] parts = path.split(delims);
 		FSElement now = cwd;
 
 		for (int i = 0; i < parts.length; i++) {
 			if (now.isLeaf())
-				throw new InvalidCommandException(path + ": no such path");
+				throw new InvalidPathException(path);
 			if (parts[i].equals("."))
 				continue;
 			if (parts[i].equals(".."))
@@ -136,9 +122,25 @@ public class FileSystem {
 		return now;
 	}
 
+	/*
 	public void createLink(String name, Directory parent, FSElement target) throws ElementExistsException {
 		Link l = new Link(name, parent, getUser(), target);
 		addChild(parent, l);
 	}
 	*/
+
+	private Directory getParent(Directory cwd) {
+		Directory parent = cwd.getParent();
+		if (parent == null)
+			parent = cwd;
+		return parent;
+	}
+
+	private FSElement getElement(Directory cwd, String name) throws InvalidPathException {
+		return cwd.getElement(name);
+	}
+
+	private void setRoot(Directory root) {
+		this.root = root;
+	}
 }

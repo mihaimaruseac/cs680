@@ -31,16 +31,14 @@ public class LsCommand extends Command {
 
 	@Override
 	public void execute() throws InvalidCommandException {
-		/*
 		FileSystem fs = FileSystem.getInstance();
 
-		if (paths.size() == 0)
-			fs.showElement(fs.getCurrent(), detailed);
-		else
+		if (paths.size() == 0) {
+			//TODO: fs.showElement(fs.getCurrent(), detailed);
+		} else
 			for (String path : paths) {
 				FSElement element = fs.resolvePath(fs.getCurrent(), path);
-				fs.showElement(element, detailed);
+				//TODO: fs.showElement(element, detailed);
 			}
-		*/
 	}
 }
