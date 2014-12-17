@@ -23,7 +23,7 @@ public class MkDirCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws ElementExistsException {
 		FileSystem fs = FileSystem.getInstance();
 		String errors = "";
 

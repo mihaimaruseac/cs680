@@ -83,6 +83,8 @@ public class HelpCommand extends Command {
 			"mkdir@<dir> [<dir_list>]@create directory(ies) in current directory",
 			"pwd@@show current directory",
 			"redo@@redo last command",
+			"rm@<file> [<file_list>]@remove files in current directory",
+			"rmdir@<dir> [<dir_list>]@remove empty directories in current directory",
 			"touch@<file> [<file_list>]@create file(s) in current directory",
 			"undo@@undo last command",
 		}) {
@@ -95,8 +97,6 @@ public class HelpCommand extends Command {
 
 		/*
 		System.out.println("\tln <src_path> <dst_path>\tmake a symbolic link");
-		System.out.println("\trm <file> [<files>]\t\tremove files in current directory");
-		System.out.println("\trmdir <dir> [<dirs>]\t\tremove empty directories in current directory");
 		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");
 		*/
 	}

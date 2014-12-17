@@ -55,38 +55,9 @@ public class Directory extends FSElement {
 		return children.get(ix);
 	}
 
-	/*
-	public void removeDirectory(String name) throws InvalidCommandException {
-		int ix = Collections.binarySearch(children, new Directory(name, null, null), getNameComparator());
-
-		if (ix < 0)
-			throw new InvalidCommandException(name + " : doesn't exist");
-
-		FSElement found = children.get(ix);
-
-		if (found.isLeaf())
-			throw new InvalidCommandException("Cannot remove directory " + name + " : it is a file");
-
-		if (((Directory)found).getChildren().size() != 0)
-			throw new InvalidCommandException("Cannot remove directory " + name + " : it is not empty");
-
-		children.remove(found);
+	public void remove(FSElement element) {
+		children.remove(element);
 	}
-
-	public void removeLeaf(String name) throws InvalidCommandException {
-		int ix = Collections.binarySearch(children, new Directory(name, null, null), getNameComparator());
-
-		if (ix < 0)
-			throw new InvalidCommandException(name + " : doesn't exist");
-
-		FSElement found = children.get(ix);
-
-		if (!found.isLeaf())
-			throw new InvalidCommandException("Cannot remove " + name + " : it is a directory");
-
-		children.remove(found);
-	}
-	*/
 
 	public ArrayList<FSElement> getChildren() {
 		return children;

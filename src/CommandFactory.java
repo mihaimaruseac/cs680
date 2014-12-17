@@ -17,12 +17,11 @@ public abstract class CommandFactory {
 			case "mkdir": return buildMkDirCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
+			case "rm": return buildRmFileCommand(tokens);
+			case "rmdir": return buildRmDirCommand(tokens);
 			case "touch": return buildMkFileCommand(tokens);
 			case "undo": return buildUndoCommand(tokens);
 			/*
-			case "rmdir": return new RmDirCommand(tokens);
-			case "rm": return new RmFileCommand(tokens);
-
 			case "ln": {
 					   if (tokens.length != 3)
 						   throw new InvalidCommandException("Must have exactly two arguments: source and destination paths");
@@ -92,6 +91,18 @@ public abstract class CommandFactory {
 
 	private static RedoCommand buildRedoCommand(String[] tokens) {
 		return new RedoCommand();
+	}
+
+	private static RmDirCommand buildRmDirCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length == 1)
+			throw new InvalidArgumentsCommandException("Need at least one directory name argument");
+		return new RmDirCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
+	}
+
+	private static RmFileCommand buildRmFileCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length == 1)
+			throw new InvalidArgumentsCommandException("Need at least one file name argument");
+		return new RmFileCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 
 	private static UndoCommand buildUndoCommand(String[] tokens) {

@@ -127,15 +127,10 @@ public class FileSystem {
 		getCurrent().modify();
 	}
 
-	/*
-	public void removeDirectory(Directory parent, String name) throws InvalidCommandException {
-		parent.removeDirectory(name);
+	public void remove(FSElement element) {
+		element.getParent().remove(element);
+		element.getParent().modify();
 	}
-
-	public void removeLeaf(Directory parent, String name) throws InvalidCommandException {
-		parent.removeLeaf(name);
-	}
-	*/
 
 	public FSElement resolvePath(String path) throws InvalidPathException {
 		if (path == null)
