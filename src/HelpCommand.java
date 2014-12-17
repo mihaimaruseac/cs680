@@ -70,6 +70,7 @@ public class HelpCommand extends Command {
 		commands = new String[] {
 			"exit",
 			"help",
+			"history",
 			"pwd",
 		};
 
@@ -77,16 +78,17 @@ public class HelpCommand extends Command {
 			"",
 			"[<cmd_list>]",
 			"",
+			"",
 		};
 
 		helpText = new String[] {
 			"leave shell, terminate program",
 			"show help message for all/argument commands",
+			"show command history",
 			"show current directory",
 		};
 
 		/*
-		System.out.println("\thistory\t\t\t\tshow command history");
 		System.out.println("\tredo\t\t\t\tredo last command");
 		System.out.println("\tundo\t\t\t\ttry to undo last command");
 		System.out.println("\tcd [<dir>]\t\t\tchange directory");
