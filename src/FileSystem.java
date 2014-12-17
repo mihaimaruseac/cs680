@@ -50,8 +50,9 @@ public class FileSystem {
 
 		System.out.println(s);
 	}
+	*/
 
-	private String getElementCanonicalName(FSElement element) {
+	public String getName(FSElement element) {
 		String s = element.getName();
 		if (!element.isLeaf())
 			s += "/";
@@ -59,7 +60,6 @@ public class FileSystem {
 			s = "@" + s;
 		return s;
 	}
-	*/
 
 	public Directory getRoot() {
 		return root;
@@ -85,7 +85,17 @@ public class FileSystem {
 	public void setOwner(FSElement element, String user) {
 		element.setOwner(user);
 	}
+	*/
 
+	public String getOwner(FSElement element) {
+		return element.getOwner();
+	}
+
+	public int getSize(FSElement element) {
+		return element.getSize();
+	}
+
+	/*
 	public void addChild(Directory parent, FSElement child) throws ElementExistsException {
 		parent.addChild(child);
 	}
@@ -99,8 +109,12 @@ public class FileSystem {
 		return element.isLeaf();
 	}
 
-	public String getName(FSElement element) {
-		return element.getName();
+	public boolean isLink(FSElement element) {
+		return element.isLink();
+	}
+
+	public FSElement getTarget(Link element) {
+		return element.getTarget();
 	}
 
 	/*

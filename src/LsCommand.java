@@ -5,6 +5,7 @@ public class LsCommand extends Command {
 	ArrayList<String> paths;
 	String cmdLine;
 	boolean detailed;
+	String errMsg;
 
 	public LsCommand(String[] args) {
 		this(args, false);
@@ -22,6 +23,7 @@ public class LsCommand extends Command {
 		}
 
 		cmdLine = sb.toString();
+		errMsg = "";
 	}
 
 	@Override
@@ -37,17 +39,49 @@ public class LsCommand extends Command {
 			showDetailedInfo(elements);
 		else
 			showShortInfo(elements);
+
+		if (errMsg.length() > 0)
+			throw new InvalidPathException(errMsg);
 	}
 
 	private void showDetailedInfo(ArrayList<FSElement> elements) {
-		// TODO:
+		FileSystem fs = FileSystem.getInstance();
+		ArrayList<String> names = new ArrayList<String>();
+		ArrayList<String> owner = new ArrayList<String>();
+		ArrayList<String> sizes = new ArrayList<String>();
+		ArrayList<String> targets = new ArrayList<String>();
+
+		for (FSElement e : elements) {
+			names.add(fs.getName(e));
+			owner.add(fs.getOwner(e));
+			sizes.add(""+fs.getSize(e));
+
+			if (fs.isLink(e))
+				targets.add(" -> " + fs.getName(fs.getTarget((Link)e)));
+			else
+				targets.add("");
+		}
+
+		ArrayList<ArrayList<String>> columns = new ArrayList<ArrayList<String>>();
+		columns.add(names);
+		columns.add(owner);
+		columns.add(sizes);
+		columns.add(targets);
+
+		TUIDisplay.columnDisplayText(columns);
 	}
 
 	private void showShortInfo(ArrayList<FSElement> elements) {
-		// TODO:
+		FileSystem fs = FileSystem.getInstance();
+		ArrayList<String> names = new ArrayList<String>();
+
+		for (FSElement e : elements)
+			names.add(fs.getName(e));
+
+		TUIDisplay.arrayDisplayText(names);
 	}
 
-	private ArrayList<FSElement> getElementsToDisplay() throws InvalidPathException {
+	private ArrayList<FSElement> getElementsToDisplay() {
 		ArrayList<FSElement> els = new ArrayList<FSElement>();
 		FileSystem fs = FileSystem.getInstance();
 
@@ -55,7 +89,15 @@ public class LsCommand extends Command {
 			addContentsOfDir(els, fs.getCurrent());
 		else
 			for (String path: paths) {
-				FSElement element = fs.resolvePath(fs.getCurrent(), path);
+				FSElement element = null;
+
+				try {
+					element = fs.resolvePath(fs.getCurrent(), path);
+				} catch (InvalidPathException e) {
+					errMsg += e.getMessage() + "\n";
+					continue;
+				}
+
 				if (fs.isLeaf(element))
 					els.add(element);
 				else
