@@ -10,6 +10,7 @@ public abstract class CommandFactory {
 			case "help": return buildHelpCommand(tokens);
 			case "history": return buildHistoryCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
+			case "redo": return buildRedoCommand(tokens);
 			/*
 			case "ls": return new LsCommand(tokens);
 			case "dir": return new LsCommand(tokens, true);
@@ -17,7 +18,6 @@ public abstract class CommandFactory {
 			case "rmdir": return new RmDirCommand(tokens);
 			case "touch": return new MkFileCommand(tokens);
 			case "rm": return new RmFileCommand(tokens);
-			case "redo": return new RedoCommand();
 			case "undo": return new UndoCommand();
 
 			case "cd": {
@@ -69,5 +69,9 @@ public abstract class CommandFactory {
 
 	private static HistoryCommand buildHistoryCommand(String[] tokens) {
 		return new HistoryCommand();
+	}
+
+	private static RedoCommand buildRedoCommand(String[] tokens) {
+		return new RedoCommand();
 	}
 }

@@ -76,6 +76,7 @@ public class HelpCommand extends Command {
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
 			"pwd@@show current directory",
+			"redo@@redo last command",
 		}) {
 			String delim="@";
 			String []parts = s.split(delim);
@@ -85,7 +86,6 @@ public class HelpCommand extends Command {
 		}
 
 		/*
-		System.out.println("\tredo\t\t\t\tredo last command");
 		System.out.println("\tundo\t\t\t\ttry to undo last command");
 		System.out.println("\tcd [<dir>]\t\t\tchange directory");
 		System.out.println("\tdir [<paths>]\t\t\tshow detailed contents of paths");
