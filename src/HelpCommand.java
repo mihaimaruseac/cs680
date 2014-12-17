@@ -87,7 +87,6 @@ public class HelpCommand extends Command {
 		}
 
 		/*
-		System.out.println("\tundo\t\t\t\ttry to undo last command");
 		System.out.println("\tcd [<dir>]\t\t\tchange directory");
 		System.out.println("\tdir [<paths>]\t\t\tshow detailed contents of paths");
 		System.out.println("\tls [<paths>]\t\t\tshow summary contents of paths");
