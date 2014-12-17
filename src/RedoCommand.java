@@ -8,6 +8,11 @@ public class RedoCommand extends Command {
 	}
 
 	@Override
+	public boolean goesToHistory() {
+		return false;
+	}
+
+	@Override
 	public void execute() throws InvalidCommandException {
 		CommandHistory.getInstance().peek().execute();
 	}
