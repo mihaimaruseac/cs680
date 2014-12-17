@@ -41,7 +41,7 @@ public class LsCommand extends Command {
 			showShortInfo(elements);
 
 		if (errMsg.length() > 0)
-			throw new InvalidPathException(errMsg);
+			throw new InvalidCommandException(errMsg);
 	}
 
 	private void showDetailedInfo(ArrayList<FSElement> elements) {

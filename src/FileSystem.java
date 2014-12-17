@@ -117,6 +117,12 @@ public class FileSystem {
 		return element.getTarget();
 	}
 
+	public void createDirectory(String name) throws ElementExistsException {
+		Directory d = new Directory(name, getCurrent(), getUser());
+		getCurrent().addChild(d);
+		getCurrent().modify();
+	}
+
 	/*
 	public void removeDirectory(Directory parent, String name) throws InvalidCommandException {
 		parent.removeDirectory(name);

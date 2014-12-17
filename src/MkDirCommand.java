@@ -25,17 +25,17 @@ public class MkDirCommand extends Command {
 	@Override
 	public void execute() throws InvalidCommandException {
 		FileSystem fs = FileSystem.getInstance();
-		Directory current = fs.getCurrent();
-		String owner = fs.getUser();
+		String errors = "";
 
-		/*
-		try {
-			for (String name : dirs)
-				fs.addChild(current, new Directory(name, current, owner));
-		} catch (ElementExistsException e) {
-			throw new InvalidCommandException(e.getMessage());
-		}
-		*/
+		for (String name : dirs)
+			try {
+				fs.createDirectory(name);
+			} catch (ElementExistsException e) {
+				errors += e.getMessage() + "\n";
+			}
+
+		if (errors.length() > 0)
+			throw new InvalidCommandException(errors);
 	}
 
 	@Override

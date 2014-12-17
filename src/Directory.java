@@ -37,16 +37,14 @@ public class Directory extends FSElement {
 	}
 
 	/* Keep sorted alphabetically */
-	/*
 	public void addChild(FSElement child) throws ElementExistsException {
 		int ix = Collections.binarySearch(children, child, getNameComparator());
 
 		if (ix >= 0)
-			throw new ElementExistsException("Cannot create " + child.getName() + " : name exists in same directory.");
+			throw new ElementExistsException(child.getName());
 
 		children.add(-(ix + 1), child);
 	}
-	*/
 
 	public FSElement getElement(String name) throws InvalidPathException {
 		int ix = Collections.binarySearch(children, new Directory(name, null, null), getNameComparator());
