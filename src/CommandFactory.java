@@ -8,8 +8,8 @@ public abstract class CommandFactory {
 		switch(tokens[0]) {
 			case "exit": return buildExitCommand(tokens);
 			case "help": return buildHelpCommand(tokens);
+			case "pwd": return buildPWDCommand(tokens);
 			/*
-			case "pwd": return new PWDCommand();
 			case "ls": return new LsCommand(tokens);
 			case "dir": return new LsCommand(tokens, true);
 			case "mkdir": return new MkDirCommand(tokens);
@@ -61,5 +61,9 @@ public abstract class CommandFactory {
 
 	private static HelpCommand buildHelpCommand(String[] tokens) {
 		return new HelpCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
+	}
+
+	private static PWDCommand buildPWDCommand(String[] tokens) {
+		return new PWDCommand();
 	}
 }

@@ -65,16 +65,19 @@ public class HelpCommand extends Command {
 		commands = new String[] {
 			"exit",
 			"help",
+			"pwd",
 		};
 
 		cmndArgs = new String[] {
 			"",
 			"[<cmd_list>]",
+			"",
 		};
 
 		helpText = new String[] {
 			"leave shell, terminate program",
 			"show help message for all/argument commands",
+			"show current directory",
 		};
 
 		/*
@@ -86,7 +89,6 @@ public class HelpCommand extends Command {
 		System.out.println("\tls [<paths>]\t\t\tshow summary contents of paths");
 		System.out.println("\tln <src_path> <dst_path>\tmake a symbolic link");
 		System.out.println("\tmkdir <dir> [<dirs>]\t\tcreate directory in current directory");
-		System.out.println("\tpwd\t\t\t\tshow current directory");
 		System.out.println("\trm <file> [<files>]\t\tremove files in current directory");
 		System.out.println("\trmdir <dir> [<dirs>]\t\tremove empty directories in current directory");
 		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");
