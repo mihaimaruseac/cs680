@@ -19,7 +19,6 @@ public abstract class CommandFactory {
 			case "rmdir": return new RmDirCommand(tokens);
 			case "touch": return new MkFileCommand(tokens);
 			case "rm": return new RmFileCommand(tokens);
-			case "undo": return new UndoCommand();
 
 			case "cd": {
 					   if (tokens.length == 1)
