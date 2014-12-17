@@ -78,6 +78,7 @@ public class HelpCommand extends Command {
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
 			"ls@[<paths>]@show summary contents of paths",
+			"mkdir@<dir> [<dir_list>]@create directory in current directory",
 			"pwd@@show current directory",
 			"redo@@redo last command",
 			"undo@@undo last command",
@@ -92,7 +93,6 @@ public class HelpCommand extends Command {
 		/*
 		System.out.println("\tcd [<dir>]\t\t\tchange directory");
 		System.out.println("\tln <src_path> <dst_path>\tmake a symbolic link");
-		System.out.println("\tmkdir <dir> [<dirs>]\t\tcreate directory in current directory");
 		System.out.println("\trm <file> [<files>]\t\tremove files in current directory");
 		System.out.println("\trmdir <dir> [<dirs>]\t\tremove empty directories in current directory");
 		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");

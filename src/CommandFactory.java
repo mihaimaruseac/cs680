@@ -12,11 +12,11 @@ public abstract class CommandFactory {
 			case "help": return buildHelpCommand(tokens);
 			case "history": return buildHistoryCommand(tokens);
 			case "ls": return buildLsCommand(tokens, false);
+			case "mkdir": return buildMkDirCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
 			case "undo": return buildUndoCommand(tokens);
 			/*
-			case "mkdir": return new MkDirCommand(tokens);
 			case "rmdir": return new RmDirCommand(tokens);
 			case "touch": return new MkFileCommand(tokens);
 			case "rm": return new RmFileCommand(tokens);
@@ -70,6 +70,12 @@ public abstract class CommandFactory {
 
 	private static LsCommand buildLsCommand(String[] tokens, boolean detailed) {
 		return new LsCommand(tokens, detailed);
+	}
+
+	private static MkDirCommand buildMkDirCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length == 1)
+			throw new InvalidArgumentsCommandException("Need at least one directory name argument");
+		return new MkDirCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 
 	private static PWDCommand buildPWDCommand(String[] tokens) {
