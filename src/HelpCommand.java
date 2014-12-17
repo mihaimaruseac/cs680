@@ -72,6 +72,7 @@ public class HelpCommand extends Command {
 		helpText = new ArrayList<String>();
 
 		for (String s : new String[] {
+			"cd@<dir>@change current directory",
 			"chuser@<user>@change current user",
 			"dir@[<paths>]@show detailed contents of paths",
 			"exit@@leave shell, terminate program",
@@ -92,12 +93,10 @@ public class HelpCommand extends Command {
 		}
 
 		/*
-		System.out.println("\tcd [<dir>]\t\t\tchange directory");
 		System.out.println("\tln <src_path> <dst_path>\tmake a symbolic link");
 		System.out.println("\trm <file> [<files>]\t\tremove files in current directory");
 		System.out.println("\trmdir <dir> [<dirs>]\t\tremove empty directories in current directory");
 		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");
-		System.out.println("\ttouch <file> [<files>]\t\tcreate files in current directory");
 		System.out.println("\tchown <user> <path> [<paths>]\tchange owner of filesystem element(s)");
 		*/
 	}

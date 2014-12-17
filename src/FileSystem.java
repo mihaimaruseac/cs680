@@ -139,10 +139,13 @@ public class FileSystem {
 	}
 	*/
 
-	public FSElement resolvePath(Directory cwd, String path) throws InvalidPathException {
+	public FSElement resolvePath(String path) throws InvalidPathException {
+		if (path == null)
+			return getRoot();
+
 		String delims = "[/]+";
 		String[] parts = path.split(delims);
-		FSElement now = cwd;
+		FSElement now = getCurrent();
 
 		for (int i = 0; i < parts.length; i++) {
 			if (now.isLeaf())

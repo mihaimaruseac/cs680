@@ -32,7 +32,7 @@ public class LsCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws InvalidPathException {
 		ArrayList<FSElement> elements = getElementsToDisplay();
 
 		if (detailed)
@@ -41,7 +41,7 @@ public class LsCommand extends Command {
 			showShortInfo(elements);
 
 		if (errMsg.length() > 0)
-			throw new InvalidCommandException(errMsg);
+			throw new InvalidPathException(errMsg);
 	}
 
 	private void showDetailedInfo(ArrayList<FSElement> elements) {
@@ -92,9 +92,9 @@ public class LsCommand extends Command {
 				FSElement element = null;
 
 				try {
-					element = fs.resolvePath(fs.getCurrent(), path);
+					element = fs.resolvePath(path);
 				} catch (InvalidPathException e) {
-					errMsg += e.getMessage() + "\n";
+					errMsg += path + " ";
 					continue;
 				}
 

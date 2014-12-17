@@ -6,6 +6,7 @@ public abstract class CommandFactory {
 		String[] tokens = cmd.split(delims);
 
 		switch(tokens[0]) {
+			case "cd": return buildCdCommand(tokens);
 			case "chuser": return buildChUserCommand(tokens);
 			case "dir": return buildLsCommand(tokens, true);
 			case "exit": return buildExitCommand(tokens);
@@ -20,12 +21,6 @@ public abstract class CommandFactory {
 			/*
 			case "rmdir": return new RmDirCommand(tokens);
 			case "rm": return new RmFileCommand(tokens);
-
-			case "cd": {
-					   if (tokens.length == 1)
-						   return new CdCommand();
-					   return new CdCommand(tokens[1]);
-			}
 
 			case "chown": {
 					   if (tokens.length <= 2)
@@ -48,6 +43,12 @@ public abstract class CommandFactory {
 		}
 
 		throw new InvalidCommandException(tokens[0] + ": no such command");
+	}
+
+	private static CdCommand buildCdCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length == 1)
+			return new CdCommand();
+		return new CdCommand(tokens[1]);
 	}
 
 	private static ChUserCommand buildChUserCommand(String[] tokens) throws InvalidArgumentsCommandException {
