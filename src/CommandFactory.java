@@ -7,15 +7,15 @@ public abstract class CommandFactory {
 
 		switch(tokens[0]) {
 			case "chuser": return buildChUserCommand(tokens);
+			case "dir": return buildLsCommand(tokens, true);
 			case "exit": return buildExitCommand(tokens);
 			case "help": return buildHelpCommand(tokens);
 			case "history": return buildHistoryCommand(tokens);
+			case "ls": return buildLsCommand(tokens, false);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
 			case "undo": return buildUndoCommand(tokens);
 			/*
-			case "ls": return new LsCommand(tokens);
-			case "dir": return new LsCommand(tokens, true);
 			case "mkdir": return new MkDirCommand(tokens);
 			case "rmdir": return new RmDirCommand(tokens);
 			case "touch": return new MkFileCommand(tokens);
@@ -66,6 +66,10 @@ public abstract class CommandFactory {
 
 	private static HistoryCommand buildHistoryCommand(String[] tokens) {
 		return new HistoryCommand();
+	}
+
+	private static LsCommand buildLsCommand(String[] tokens, boolean detailed) {
+		return new LsCommand(tokens, detailed);
 	}
 
 	private static PWDCommand buildPWDCommand(String[] tokens) {

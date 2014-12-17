@@ -22,6 +22,7 @@ public class FileSystem {
 		setCurrent(getRoot());
 	}
 
+	/*
 	public void showElement(FSElement element, boolean detailed) {
 		if (!element.isLeaf()) {
 			for (FSElement e : ((Directory)element).getChildren())
@@ -58,6 +59,7 @@ public class FileSystem {
 			s = "@" + s;
 		return s;
 	}
+	*/
 
 	private void setRoot(Directory root) {
 		this.root = root;
@@ -83,6 +85,7 @@ public class FileSystem {
 		return user;
 	}
 
+	/*
 	public void setOwner(FSElement element, String user) {
 		element.setOwner(user);
 	}
@@ -137,4 +140,5 @@ public class FileSystem {
 		Link l = new Link(name, parent, getUser(), target);
 		addChild(parent, l);
 	}
+	*/
 }

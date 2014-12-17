@@ -73,9 +73,11 @@ public class HelpCommand extends Command {
 
 		for (String s : new String[] {
 			"chuser@<user>@change current user",
+			"dir@[<paths>]@show detailed contents of paths",
 			"exit@@leave shell, terminate program",
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
+			"ls@[<paths>]@show summary contents of paths",
 			"pwd@@show current directory",
 			"redo@@redo last command",
 			"undo@@undo last command",
@@ -89,8 +91,6 @@ public class HelpCommand extends Command {
 
 		/*
 		System.out.println("\tcd [<dir>]\t\t\tchange directory");
-		System.out.println("\tdir [<paths>]\t\t\tshow detailed contents of paths");
-		System.out.println("\tls [<paths>]\t\t\tshow summary contents of paths");
 		System.out.println("\tln <src_path> <dst_path>\tmake a symbolic link");
 		System.out.println("\tmkdir <dir> [<dirs>]\t\tcreate directory in current directory");
 		System.out.println("\trm <file> [<files>]\t\tremove files in current directory");
