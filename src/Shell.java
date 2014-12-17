@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -25,8 +26,17 @@ public class Shell {
 		loop();
 	}
 
-	private void parseAndExecute(String cmd) throws InvalidCommandException {
-		Command c = CommandFactory.getCommand(cmd);
+	private void parseAndExecute(String cmd) throws MultipleExceptionsException {
+		MultipleExceptionsException e = null;
+		Command c = null;
+
+		try {
+			c = CommandFactory.getCommand(cmd);
+		} catch (InvalidCommandException ice) {
+			e = new MultipleExceptionsException();
+			e.addException(ice);
+			throw e;
+		}
 
 		if (c.goesToHistory())
 			CommandHistory.getInstance().push(c);
@@ -47,9 +57,10 @@ public class Shell {
 					break;
 				else if (line.length() != 0)
 					parseAndExecute(line);
-			} catch (Exception e) {
+			} catch (IOException e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
-				e.printStackTrace();
+			} catch (MultipleExceptionsException e) {
+				TUIDisplay.simpleDisplayText(e.getMessage());
 			}
 		}
 	}

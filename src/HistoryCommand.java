@@ -13,7 +13,9 @@ public class HistoryCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		CommandHistory.getInstance().printCommands();
+		*/
 	}
 }

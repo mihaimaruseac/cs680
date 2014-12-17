@@ -13,10 +13,12 @@ public class RedoCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		Command c = CommandHistory.getInstance().peek();
 		if (c == null)
 			throw new EmptyHistoryException();
 		c.execute();
+		*/
 	}
 }

@@ -8,7 +8,9 @@ public class ExitCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		Shell.getInstance().stopShell();
+		*/
 	}
 }

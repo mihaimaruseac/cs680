@@ -20,12 +20,16 @@ public class ChUserCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		FileSystem.getInstance().setUser(user);
+		*/
 	}
 
 	@Override
-	public void executeUndo() throws InvalidCommandException {
+	public void executeUndo() throws MultipleExceptionsException {
+		/*
 		FileSystem.getInstance().setUser(lastUser);
+		*/
 	}
 }

@@ -32,7 +32,8 @@ public class LsCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidPathException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		ArrayList<FSElement> elements = getElementsToDisplay();
 
 		if (detailed)
@@ -42,6 +43,7 @@ public class LsCommand extends Command {
 
 		if (errMsg.length() > 0)
 			throw new InvalidPathException(errMsg);
+			*/
 	}
 
 	private void showDetailedInfo(ArrayList<FSElement> elements) {

@@ -29,7 +29,8 @@ public class HelpCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws CommandHelpNotFoundException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		if (args.length == 0)
 			TUIDisplay.arrayDisplayText(commands);
 		else {
@@ -54,6 +55,7 @@ public class HelpCommand extends Command {
 			if (notFounds.size() > 0)
 				showErrors(notFounds);
 		}
+		*/
 	}
 
 	private void showErrors(ArrayList<String> notFounds) throws CommandHelpNotFoundException {

@@ -1,5 +1,5 @@
 public abstract class Command {
-	public abstract void execute() throws InvalidCommandException;
+	public abstract void execute() throws MultipleExceptionsException;
 	public abstract String getCommandLine();
 
 	public boolean canUndo() {
@@ -10,7 +10,9 @@ public abstract class Command {
 		return true;
 	}
 
-	public void executeUndo() throws InvalidCommandException {
-		throw new NotUndoableCommandException();
+	public void executeUndo() throws MultipleExceptionsException {
+		MultipleExceptionsException e = new MultipleExceptionsException();
+		e.addException(new NotUndoableCommandException());
+		throw e;
 	}
 }

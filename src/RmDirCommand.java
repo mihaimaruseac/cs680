@@ -23,7 +23,8 @@ public class RmDirCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidPathException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		FileSystem fs = FileSystem.getInstance();
 		String errors = "";
 
@@ -42,5 +43,6 @@ public class RmDirCommand extends Command {
 
 		if (errors.length() > 0)
 			throw new InvalidPathException(errors);
+			*/
 	}
 }

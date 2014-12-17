@@ -23,7 +23,8 @@ public class MkDirCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws ElementExistsException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		FileSystem fs = FileSystem.getInstance();
 		String errors = "";
 
@@ -36,6 +37,7 @@ public class MkDirCommand extends Command {
 
 		if (errors.length() > 0)
 			throw new ElementExistsException(errors);
+			*/
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class MkDirCommand extends Command {
 	}
 
 	@Override
-	public void executeUndo() throws InvalidCommandException {
+	public void executeUndo() throws MultipleExceptionsException {
 		/*
 		FileSystem fs = FileSystem.getInstance();
 		Directory current = fs.getCurrent();

@@ -20,7 +20,8 @@ public class CdCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidCommandException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		FileSystem fs = FileSystem.getInstance();
 		FSElement now = fs.resolvePath(path);
 
@@ -31,6 +32,7 @@ public class CdCommand extends Command {
 		lastDir = fs.getCurrent();
 
 		FileSystem.getInstance().setCurrent(dir);
+		*/
 	}
 
 	@Override
@@ -39,7 +41,9 @@ public class CdCommand extends Command {
 	}
 
 	@Override
-	public void executeUndo() throws InvalidCommandException {
+	public void executeUndo() throws MultipleExceptionsException {
+		/*
 		FileSystem.getInstance().setCurrent(lastDir);
+		*/
 	}
 }

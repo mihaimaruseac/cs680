@@ -29,7 +29,8 @@ public class ChOwnCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws InvalidPathException {
+	public void execute() throws MultipleExceptionsException {
+		/*
 		FileSystem fs = FileSystem.getInstance();
 		String errors = "";
 
@@ -50,6 +51,7 @@ public class ChOwnCommand extends Command {
 
 		if (errors.length() > 0)
 			throw new InvalidPathException(errors);
+			*/
 	}
 
 	@Override
@@ -58,10 +60,12 @@ public class ChOwnCommand extends Command {
 	}
 
 	@Override
-	public void executeUndo() {
+	public void executeUndo() throws MultipleExceptionsException {
+		/*
 		FileSystem fs = FileSystem.getInstance();
 
 		for (int i = 0; i < owners.size(); i++)
 			fs.setOwner(elements.get(i), owners.get(i));
+			*/
 	}
 }
