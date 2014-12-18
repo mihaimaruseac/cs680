@@ -73,13 +73,14 @@ public class HelpCommand extends Command {
 			"exit@@leave shell, terminate program",
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
-			"ls@[<paths>]@show summary contents of paths",
 			"ln@<src_path> <dst_path>@make a symbolic link",
+			"ls@[<paths>]@show summary contents of paths",
 			"mkdir@<dir> [<dir_list>]@create directory(ies)",
 			"pwd@@show current directory",
 			"redo@@redo last command",
 			"rm@<file> [<file_list>]@remove file(s)",
 			"rmdir@<dir> [<dir_list>]@remove empty directory(ies)",
+			"sort@<method> <directory>@displays detailed info in sorted order",
 			"touch@<file> [<file_list>]@create file(s)",
 			"undo@@undo last command",
 		}) {
@@ -89,9 +90,5 @@ public class HelpCommand extends Command {
 			cmndArgs.add(parts[1]);
 			helpText.add(parts[2]);
 		}
-
-		/*
-		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");
-		*/
 	}
 }

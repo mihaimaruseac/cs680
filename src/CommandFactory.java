@@ -20,15 +20,9 @@ public abstract class CommandFactory {
 			case "redo": return buildRedoCommand(tokens);
 			case "rm": return buildRmFileCommand(tokens);
 			case "rmdir": return buildRmDirCommand(tokens);
+			case "sort": return buildSortCommand(tokens);
 			case "touch": return buildMkFileCommand(tokens);
 			case "undo": return buildUndoCommand(tokens);
-			/*
-			case "sort": {
-					   if (tokens.length != 3)
-						   throw new InvalidCommandException("Must have exactly two arguments: method and directory");
-					   return new SortCommand(tokens[1], tokens[2]);
-			}
-			*/
 		}
 
 		throw new InvalidCommandException(tokens[0] + ": no such command");
@@ -54,6 +48,12 @@ public abstract class CommandFactory {
 
 	private static DirCommand buildDirCommand(String[] tokens) {
 		return new DirCommand(tokens);
+	}
+
+	private static SortCommand buildSortCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length <= 1)
+			throw new InvalidArgumentsCommandException("Must have at least the sorting method argument");
+		return new SortCommand(tokens[1], Arrays.copyOfRange(tokens, 2, tokens.length));
 	}
 
 	private static ExitCommand buildExitCommand(String[] tokens) {

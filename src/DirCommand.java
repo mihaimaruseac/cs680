@@ -5,6 +5,10 @@ public class DirCommand extends ListCommand {
 		super(args, "dir");
 	}
 
+	protected DirCommand(String[] args, String base) {
+		super(args, base);
+	}
+
 	@Override
 	protected void showInfo(ArrayList<FSElement> elements) {
 		FileSystem fs = FileSystem.getInstance();
