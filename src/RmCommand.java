@@ -6,7 +6,7 @@ public abstract class RmCommand extends Command {
 	String cmdLine;
 
 	public RmCommand(String[] args, String base) {
-		StringBuilder sb = new StringBuilder("rm");
+		StringBuilder sb = new StringBuilder(base);
 		paths = new ArrayList<String>();
 
 		for (String s: args) {
@@ -52,6 +52,5 @@ public abstract class RmCommand extends Command {
 			throw up;
 	}
 
-	protected void validateElement(String path, FSElement element) throws InvalidArgumentsCommandException {
-	}
+	protected abstract void validateElement(String path, FSElement element) throws InvalidArgumentsCommandException;
 }
