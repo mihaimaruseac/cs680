@@ -1,6 +1,3 @@
-import java.lang.StringBuilder;
-import java.util.ArrayList;
-
 public class MkFileCommand extends MkCommand {
 	public MkFileCommand(String[] args) {
 		super(args, "touch", "rm");

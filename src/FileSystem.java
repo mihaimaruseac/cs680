@@ -22,36 +22,6 @@ public class FileSystem {
 		setCurrent(getRoot());
 	}
 
-	/*
-	public void showElement(FSElement element, boolean detailed) {
-		if (!element.isLeaf()) {
-			for (FSElement e : ((Directory)element).getChildren())
-				doShowElement(e, detailed);
-		} else
-			doShowElement(element, detailed);
-	}
-
-	private void doShowElement(FSElement element, boolean detailed) {
-		if (detailed)
-			showDetailedElement(element);
-		else
-			showSummaryElement(element);
-	}
-
-	public void showSummaryElement(FSElement element) {
-		System.out.println(getElementCanonicalName(element));
-	}
-
-	public void showDetailedElement(FSElement element) {
-		String s = getElementCanonicalName(element) + "\t\t\t" + element.getOwner() + "\t\t" + element.getSize();
-
-		if (element.isLink())
-			s += " -> " + ((Link)element).getTarget().getName();
-
-		System.out.println(s);
-	}
-	*/
-
 	public String getName(FSElement element) {
 		String s = element.getName();
 		if (!element.isLeaf())
@@ -92,12 +62,6 @@ public class FileSystem {
 	public int getSize(FSElement element) {
 		return element.getSize();
 	}
-
-	/*
-	public void addChild(Directory parent, FSElement child) throws ElementExistsException {
-		parent.addChild(child);
-	}
-	*/
 
 	public ArrayList<FSElement> getChildren(Directory dir) {
 		return dir.getChildren();

@@ -1,6 +1,3 @@
-import java.lang.StringBuilder;
-import java.util.ArrayList;
-
 public class RmFileCommand extends RmCommand {
 	public RmFileCommand(String[] args) {
 		super(args, "rm");

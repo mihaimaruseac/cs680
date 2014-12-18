@@ -1,6 +1,3 @@
-import java.lang.StringBuilder;
-import java.util.ArrayList;
-
 public class MkDirCommand extends MkCommand {
 	public MkDirCommand(String[] args) {
 		super(args, "mkdir", "rmdir");

@@ -1,6 +1,3 @@
-import java.lang.StringBuilder;
-import java.util.ArrayList;
-
 public class RmDirCommand extends RmCommand {
 	public RmDirCommand(String[] args) {
 		super(args, "rmdir");
