@@ -3,8 +3,6 @@ import java.util.ArrayList;
 
 public class ChOwnCommand extends Command {
 	ArrayList<String> paths;
-	ArrayList<FSElement> elements;
-	ArrayList<String> owners;
 	String user;
 	String cmdLine;
 
@@ -19,8 +17,6 @@ public class ChOwnCommand extends Command {
 		}
 
 		cmdLine = sb.toString();
-		elements = new ArrayList<FSElement>();
-		owners = new ArrayList<String>();
 	}
 
 	@Override
@@ -30,10 +26,8 @@ public class ChOwnCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
-		/*
-		 * TODO:
 		FileSystem fs = FileSystem.getInstance();
-		String errors = "";
+		MultipleExceptionsException up = null;
 
 		for (String path : paths) {
 			FSElement element = null;
@@ -41,33 +35,15 @@ public class ChOwnCommand extends Command {
 			try {
 				element = fs.resolvePath(path);
 			} catch (InvalidPathException e) {
-				errors += path + " ";
+				if (up == null)
+					up = new MultipleExceptionsException();
+
+				up.addException(e);
 				continue;
 			}
 
-			elements.add(element);
-			owners.add(fs.getOwner(element));
 			fs.setOwner(element, user);
 		}
 
-		if (errors.length() > 0)
-			throw new InvalidPathException(errors);
-			*/
-	}
-
-	@Override
-	public boolean canUndo() {
-		return true;
-	}
-
-	@Override
-	public void executeUndo() throws MultipleExceptionsException {
-		/*
-		 * TODO:
-		FileSystem fs = FileSystem.getInstance();
-
-		for (int i = 0; i < owners.size(); i++)
-			fs.setOwner(elements.get(i), owners.get(i));
-			*/
 	}
 }
