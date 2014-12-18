@@ -60,6 +60,15 @@ public abstract class MkCommand extends Command {
 				continue;
 			}
 
+			try {
+				extraPathSetup();
+			} catch (InvalidPathException e) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(e);
+				continue;
+			}
+
 			fs.setCurrent((Directory)parentDir);
 
 			try {
@@ -99,5 +108,6 @@ public abstract class MkCommand extends Command {
 		}
 	}
 
+	protected void extraPathSetup() throws InvalidPathException {}
 	protected abstract void create(String name) throws ElementExistsException;
 }

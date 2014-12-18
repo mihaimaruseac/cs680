@@ -131,6 +131,12 @@ public class FileSystem {
 		getCurrent().modify();
 	}
 
+	public void createLink(String name, FSElement target) throws ElementExistsException {
+		Link l = new Link(name, getCurrent(), getUser(), target);
+		getCurrent().addChild(l);
+		getCurrent().modify();
+	}
+
 	public void remove(FSElement element) {
 		element.getParent().remove(element);
 		element.getParent().modify();
@@ -157,13 +163,6 @@ public class FileSystem {
 
 		return now;
 	}
-
-	/*
-	public void createLink(String name, Directory parent, FSElement target) throws ElementExistsException {
-		Link l = new Link(name, parent, getUser(), target);
-		addChild(parent, l);
-	}
-	*/
 
 	private Directory getParent(Directory cwd) {
 		Directory parent = cwd.getParent();

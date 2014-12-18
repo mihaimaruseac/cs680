@@ -13,6 +13,7 @@ public abstract class CommandFactory {
 			case "exit": return buildExitCommand(tokens);
 			case "help": return buildHelpCommand(tokens);
 			case "history": return buildHistoryCommand(tokens);
+			case "ln": return buildLnCommand(tokens);
 			case "ls": return buildLsCommand(tokens);
 			case "mkdir": return buildMkDirCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
@@ -22,12 +23,6 @@ public abstract class CommandFactory {
 			case "touch": return buildMkFileCommand(tokens);
 			case "undo": return buildUndoCommand(tokens);
 			/*
-			case "ln": {
-					   if (tokens.length != 3)
-						   throw new InvalidCommandException("Must have exactly two arguments: source and destination paths");
-					   return new LnCommand(tokens[1], tokens[2]);
-			}
-
 			case "sort": {
 					   if (tokens.length != 3)
 						   throw new InvalidCommandException("Must have exactly two arguments: method and directory");
@@ -75,6 +70,12 @@ public abstract class CommandFactory {
 
 	private static LsCommand buildLsCommand(String[] tokens) {
 		return new LsCommand(tokens);
+	}
+
+	private static MkLinkCommand buildLnCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length != 3)
+			throw new InvalidArgumentsCommandException("Must have exactly two arguments: source and destination paths");
+		return new MkLinkCommand(tokens[1], tokens[2]);
 	}
 
 	private static MkDirCommand buildMkDirCommand(String[] tokens) throws InvalidArgumentsCommandException {

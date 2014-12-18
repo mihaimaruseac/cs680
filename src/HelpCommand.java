@@ -74,6 +74,7 @@ public class HelpCommand extends Command {
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",
 			"ls@[<paths>]@show summary contents of paths",
+			"ln@<src_path> <dst_path>@make a symbolic link",
 			"mkdir@<dir> [<dir_list>]@create directory(ies)",
 			"pwd@@show current directory",
 			"redo@@redo last command",
@@ -90,7 +91,6 @@ public class HelpCommand extends Command {
 		}
 
 		/*
-		System.out.println("\tln <src_path> <dst_path>\tmake a symbolic link");
 		System.out.println("\tsort <method> <directory>\tdisplays detailed info of directory contents in sorted order");
 		*/
 	}
