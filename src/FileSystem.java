@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FileSystem {
 	private Directory root;
 	private Directory current;
 	private User user;
+	private HashMap<String, User> users;
 	private static FileSystem instance = null;
 
 	private FileSystem() {
@@ -17,7 +19,11 @@ public class FileSystem {
 	}
 
 	public void setUp() {
-		setUser(getUserByName("root")); //TODO
+		User root = new User("root", "TODO");
+		users = new HashMap<String, User>();
+		users.put("root", root);
+
+		setUser(root);
 		setRoot(new Directory("root", null, getUser()));
 		setCurrent(getRoot());
 	}
