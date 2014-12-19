@@ -6,10 +6,10 @@ public class FileSystem {
 	private Directory current;
 	private User user;
 	private HashMap<String, User> users;
-	private static FileSystem instance = null;
+	private static FileSystem instance;
 
 	private FileSystem() {
-		setUp();
+		users = new HashMap<String, User>();
 	}
 
 	public static FileSystem getInstance() {
@@ -19,13 +19,14 @@ public class FileSystem {
 	}
 
 	public void setUp() {
-		User root = new User("root", "TODO");
-		users = new HashMap<String, User>();
-		users.put("root", root);
-
-		setUser(root);
+		setUser(users.get("root"));
 		setRoot(new Directory("root", null, getUser()));
 		setCurrent(getRoot());
+	}
+
+	public void setUpUsers(ArrayList<User> users) {
+		for (User u : users)
+			this.users.put(u.getName(), u);
 	}
 
 	public String getName(FSElement element) {
@@ -57,8 +58,18 @@ public class FileSystem {
 		return user;
 	}
 
-	public User getUserByName(String userName) {
-		return null; // TODO
+	public User getUserByName(String userName) throws UserNotFoundException {
+		User u = users.get(userName);
+
+		if (u == null)
+			throw new UserNotFoundException(userName);
+
+		return u;
+	}
+
+	public void listUsers() {
+		ArrayList<String> userNames = new ArrayList<String>(users.keySet());
+		TUIDisplay.arrayDisplayText(userNames);
 	}
 
 	public void setOwner(FSElement element, User user) {

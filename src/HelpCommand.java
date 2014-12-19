@@ -72,6 +72,7 @@ public class HelpCommand extends Command {
 			"history@@show command history",
 			"ln@<src_path> <dst_path>@make a symbolic link",
 			"ls@[<paths>]@show summary contents of paths",
+			"lsusers@@list all users in the shell",
 			"mkdir@<dir> [<dir_list>]@create directory(ies)",
 			"pwd@@show current directory",
 			"redo@@redo last command",

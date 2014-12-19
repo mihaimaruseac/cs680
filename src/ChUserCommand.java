@@ -15,9 +15,17 @@ public class ChUserCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
-		user = FileSystem.getInstance().getUserByName(userName);
 		lastUser = FileSystem.getInstance().getUser();
-		FileSystem.getInstance().setUser(user);
+
+		try {
+			user = FileSystem.getInstance().getUserByName(userName);
+			FileSystem.getInstance().setUser(user);
+		} catch (UserNotFoundException e) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(e);
+			throw up;
+		}
+
 	}
 
 	@Override

@@ -18,6 +18,7 @@ public abstract class CommandFactory {
 			case "history": return buildHistoryCommand(tokens);
 			case "ln": return buildLnCommand(tokens);
 			case "ls": return buildLsCommand(tokens);
+			case "lsusers": return buildLsUserCommand(tokens);
 			case "mkdir": return buildMkDirCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
@@ -91,6 +92,10 @@ public abstract class CommandFactory {
 
 	private static LsCommand buildLsCommand(String[] tokens) {
 		return new LsCommand(tokens);
+	}
+
+	private static LsUserCommand buildLsUserCommand(String[] tokens) {
+		return new LsUserCommand();
 	}
 
 	private static MkLinkCommand buildLnCommand(String[] tokens) throws InvalidArgumentsCommandException {

@@ -24,20 +24,24 @@ public class ChOwnCommand extends Command {
 		MultipleExceptionsException up = null;
 
 		for (String path : paths) {
-			FSElement element = null;
-
 			try {
-				element = fs.resolvePath(path);
+				FSElement element = fs.resolvePath(path);
+				User u = fs.getUserByName(user);
+				fs.setOwner(element, u);
 			} catch (InvalidPathException e) {
 				if (up == null)
 					up = new MultipleExceptionsException();
 
 				up.addException(e);
-				continue;
-			}
+			} catch (UserNotFoundException e) {
+				if (up == null)
+					up = new MultipleExceptionsException();
 
-			User u = fs.getUserByName(user);
-			fs.setOwner(element, u);
+				up.addException(e);
+			}
 		}
+
+		if (up != null)
+			throw up;
 	}
 }
