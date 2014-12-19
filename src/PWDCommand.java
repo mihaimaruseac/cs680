@@ -1,10 +1,6 @@
 public class PWDCommand extends Command {
 	public PWDCommand() {
-	}
-
-	@Override
-	public String getCommandLine() {
-		return "pwd";
+		cmdLine = "pwd";
 	}
 
 	@Override

@@ -1,6 +1,11 @@
 public abstract class Command {
+	String cmdLine;
+
 	public abstract void execute() throws MultipleExceptionsException;
-	public abstract String getCommandLine();
+
+	public final String getCommandLine() {
+		return cmdLine;
+	}
 
 	public boolean canUndo() {
 		return false;

@@ -1,10 +1,6 @@
 public class HistoryCommand extends Command {
 	public HistoryCommand() {
-	}
-
-	@Override
-	public String getCommandLine() {
-		return "history";
+		cmdLine = "history";
 	}
 
 	@Override

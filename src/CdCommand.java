@@ -1,7 +1,6 @@
 public class CdCommand extends Command {
 	Directory dir;
 	Directory lastDir;
-	String cmdLine;
 	String path;
 
 	public CdCommand() {
@@ -12,11 +11,6 @@ public class CdCommand extends Command {
 	public CdCommand(String path) {
 		cmdLine = "cd " + path;
 		this.path = path;
-	}
-
-	@Override
-	public String getCommandLine() {
-		return cmdLine;
 	}
 
 	@Override

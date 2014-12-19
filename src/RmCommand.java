@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public abstract class RmCommand extends Command {
 	ArrayList<String> paths;
-	String cmdLine;
 
 	public RmCommand(String[] args, String base) {
 		StringBuilder sb = new StringBuilder(base);
@@ -15,11 +14,6 @@ public abstract class RmCommand extends Command {
 		}
 
 		cmdLine = sb.toString();
-	}
-
-	@Override
-	public String getCommandLine() {
-		return cmdLine;
 	}
 
 	@Override

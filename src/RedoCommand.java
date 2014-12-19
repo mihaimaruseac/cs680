@@ -1,10 +1,6 @@
 public class RedoCommand extends Command {
 	public RedoCommand() {
-	}
-
-	@Override
-	public String getCommandLine() {
-		return "redo";
+		cmdLine = "redo";
 	}
 
 	@Override

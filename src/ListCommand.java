@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public abstract class ListCommand extends Command {
 	ArrayList<String> paths;
-	String cmdLine;
 	MultipleExceptionsException up;
 
 	public ListCommand(String[] args, String base) {
@@ -16,11 +15,6 @@ public abstract class ListCommand extends Command {
 		}
 
 		cmdLine = sb.toString();
-	}
-
-	@Override
-	public String getCommandLine() {
-		return cmdLine;
 	}
 
 	@Override

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 public class ChOwnCommand extends Command {
 	ArrayList<String> paths;
 	String user;
-	String cmdLine;
 
 	public ChOwnCommand(String[] args) {
 		user = args[1];
@@ -17,11 +16,6 @@ public class ChOwnCommand extends Command {
 		}
 
 		cmdLine = sb.toString();
-	}
-
-	@Override
-	public String getCommandLine() {
-		return cmdLine;
 	}
 
 	@Override

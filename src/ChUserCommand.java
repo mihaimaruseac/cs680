@@ -1,7 +1,6 @@
 public class ChUserCommand extends Command {
 	String user;
 	String lastUser;
-	String cmdLine;
 
 	public ChUserCommand(String user) {
 		this.user = user;
@@ -12,11 +11,6 @@ public class ChUserCommand extends Command {
 	@Override
 	public boolean canUndo() {
 		return true;
-	}
-
-	@Override
-	public String getCommandLine() {
-		return cmdLine;
 	}
 
 	@Override

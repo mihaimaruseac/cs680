@@ -1,10 +1,6 @@
 public class UndoCommand extends Command {
 	public UndoCommand() {
-	}
-
-	@Override
-	public String getCommandLine() {
-		return "undo";
+		cmdLine = "undo";
 	}
 
 	@Override

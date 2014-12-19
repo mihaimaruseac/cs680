@@ -11,16 +11,10 @@ public class HelpCommand extends Command {
 	public HelpCommand(String[] args) {
 		setup();
 		this.args = args;
-	}
-
-	@Override
-	public String getCommandLine() {
-		String cmdLine = "help";
+		cmdLine = "help";
 
 		for (String s : args)
 			cmdLine += " " + s;
-
-		return cmdLine;
 	}
 
 	@Override
