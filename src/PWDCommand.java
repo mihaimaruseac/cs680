@@ -6,6 +6,6 @@ public class PWDCommand extends Command {
 	@Override
 	public void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
-		System.out.println(fs.getName(fs.getCurrent()));
+		TUIDisplay.simpleDisplayText(fs.getName(fs.getCurrent()));
 	}
 }

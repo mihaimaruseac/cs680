@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class CommandHistory {
@@ -28,12 +29,18 @@ public class CommandHistory {
 	}
 
 	public void printCommands() {
+		ArrayList<ArrayList<String>> columns = new ArrayList<ArrayList<String>>();
+		columns.add(new ArrayList<String>());
+		columns.add(new ArrayList<String>());
+
 		for (Command c : commands) {
 			if (c.canUndo())
-				System.out.print(" [U] ");
+				columns.get(0).add("[U]");
 			else
-				System.out.print(" [ ] ");
-			System.out.println(c.getCommandLine());
+				columns.get(0).add("[ ]");
+			columns.get(1).add(c.getCommandLine());
 		}
+
+		TUIDisplay.columnDisplayText(columns);
 	}
 }
