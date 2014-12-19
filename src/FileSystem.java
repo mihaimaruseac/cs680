@@ -7,7 +7,7 @@ public class FileSystem {
 	private static FileSystem instance = null;
 
 	private FileSystem() {
-		clear();
+		setUp();
 	}
 
 	public static FileSystem getInstance() {
@@ -16,7 +16,7 @@ public class FileSystem {
 		return instance;
 	}
 
-	public void clear() {
+	public void setUp() {
 		setUser(getUserByName("root")); //TODO
 		setRoot(new Directory("root", null, getUser()));
 		setCurrent(getRoot());
