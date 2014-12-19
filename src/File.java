@@ -1,7 +1,7 @@
 public class File extends FSElement {
 	private String contents;
 
-	public File(String name, Directory parent, String owner) {
+	public File(String name, Directory parent, User owner) {
 		super(name, parent, owner);
 		contents = "";
 	}

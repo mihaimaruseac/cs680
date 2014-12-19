@@ -1,10 +1,10 @@
 public class ChUserCommand extends Command {
-	String user;
-	String lastUser;
+	User user;
+	User lastUser;
+	String userName;
 
 	public ChUserCommand(String user) {
-		this.user = user;
-		this.lastUser = FileSystem.getInstance().getUser();
+		userName = user;
 		cmdLine = "chuser " + user;
 	}
 
@@ -15,6 +15,8 @@ public class ChUserCommand extends Command {
 
 	@Override
 	public void execute() throws MultipleExceptionsException {
+		user = FileSystem.getInstance().getUserByName(userName);
+		lastUser = FileSystem.getInstance().getUser();
 		FileSystem.getInstance().setUser(user);
 	}
 

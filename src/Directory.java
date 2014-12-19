@@ -5,7 +5,7 @@ import java.util.Comparator;
 public class Directory extends FSElement {
 	private ArrayList<FSElement> children;
 
-	public Directory(String name, Directory parent, String owner) {
+	public Directory(String name, Directory parent, User owner) {
 		super(name, parent, owner);
 		children = new ArrayList<FSElement>();
 	}

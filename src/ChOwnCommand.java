@@ -36,8 +36,8 @@ public class ChOwnCommand extends Command {
 				continue;
 			}
 
-			fs.setOwner(element, user);
+			User u = fs.getUserByName(user);
+			fs.setOwner(element, u);
 		}
-
 	}
 }

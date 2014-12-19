@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class FileSystem {
 	private Directory root;
 	private Directory current;
-	private String user;
+	private User user;
 	private static FileSystem instance = null;
 
 	private FileSystem() {
@@ -17,7 +17,7 @@ public class FileSystem {
 	}
 
 	public void clear() {
-		setUser("root");
+		setUser(getUserByName("root")); //TODO
 		setRoot(new Directory("root", null, getUser()));
 		setCurrent(getRoot());
 	}
@@ -43,19 +43,23 @@ public class FileSystem {
 		return current;
 	}
 
-	public void setUser(String user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
-	public String getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setOwner(FSElement element, String user) {
+	public User getUserByName(String userName) {
+		return null; // TODO
+	}
+
+	public void setOwner(FSElement element, User user) {
 		element.setOwner(user);
 	}
 
-	public String getOwner(FSElement element) {
+	public User getOwner(FSElement element) {
 		return element.getOwner();
 	}
 

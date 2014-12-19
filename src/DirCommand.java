@@ -19,7 +19,7 @@ public class DirCommand extends ListCommand {
 
 		for (FSElement e : elements) {
 			names.add(fs.getName(e));
-			owner.add(fs.getOwner(e));
+			owner.add(fs.getOwner(e).getName());
 			sizes.add(""+fs.getSize(e));
 
 			if (fs.isLink(e))

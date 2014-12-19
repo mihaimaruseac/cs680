@@ -2,12 +2,12 @@ import java.util.Date;
 
 public abstract class FSElement {
 	private String name;
-	private String owner;
+	private User owner;
 	private Directory parent;
 	private Date created;
 	private Date lastModified;
 
-	public FSElement(String name, Directory parent, String owner) {
+	public FSElement(String name, Directory parent, User owner) {
 		this.name = name;
 		this.parent = parent;
 		this.owner = owner;
@@ -23,11 +23,11 @@ public abstract class FSElement {
 		return name;
 	}
 
-	public String getOwner() {
+	public User getOwner() {
 		return owner;
 	}
 
-	public void setOwner(String user) {
+	public void setOwner(User user) {
 		owner = user;
 	}
 
