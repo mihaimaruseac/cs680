@@ -116,7 +116,7 @@ public class FileSystem {
 	}
 
 	public void appendFileContents(File file, String text) {
-		file.setContents(file.getContents() + "\n" + text);
+		file.setContents(file.getContents() + text);
 		file.modify();
 	}
 

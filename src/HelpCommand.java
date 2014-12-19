@@ -60,10 +60,13 @@ public class HelpCommand extends Command {
 		helpText = new ArrayList<String>();
 
 		for (String s : new String[] {
+			"append@<file>@append text to file",
+			"cat@<file>@show contents of file",
 			"cd@<dir>@change current directory",
 			"chown@<user> <path> [<path_list>]@change owner of filesystem element(s)",
 			"chuser@<user>@change current user",
 			"dir@[<paths>]@show detailed contents of paths",
+			"edit@<file>@replace contents of file",
 			"exit@@leave shell, terminate program",
 			"help@[<cmd_list>]@show help message for all/argument commands",
 			"history@@show command history",

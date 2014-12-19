@@ -6,10 +6,13 @@ public abstract class CommandFactory {
 		String[] tokens = cmd.split(delims);
 
 		switch(tokens[0]) {
+			case "append": return buildAppendCommand(tokens);
+			case "cat": return buildCatCommand(tokens);
 			case "cd": return buildCdCommand(tokens);
 			case "chown": return buildChOwnCommand(tokens);
 			case "chuser": return buildChUserCommand(tokens);
 			case "dir": return buildDirCommand(tokens);
+			case "edit": return buildWriteCommand(tokens);
 			case "exit": return buildExitCommand(tokens);
 			case "help": return buildHelpCommand(tokens);
 			case "history": return buildHistoryCommand(tokens);
@@ -26,6 +29,24 @@ public abstract class CommandFactory {
 		}
 
 		throw new InvalidCommandException(tokens[0] + ": no such command");
+	}
+
+	private static ReadFileCommand buildCatCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length <= 1)
+			throw new InvalidArgumentsCommandException("Must have a file argument");
+		return new ReadFileCommand(tokens[1]);
+	}
+
+	private static WriteFileCommand buildWriteCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length <= 1)
+			throw new InvalidArgumentsCommandException("Must have a file argument");
+		return new WriteFileCommand(tokens[1]);
+	}
+
+	private static AppendFileCommand buildAppendCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length <= 1)
+			throw new InvalidArgumentsCommandException("Must have a file argument");
+		return new AppendFileCommand(tokens[1]);
 	}
 
 	private static CdCommand buildCdCommand(String[] tokens) throws InvalidArgumentsCommandException {
