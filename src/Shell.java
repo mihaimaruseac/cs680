@@ -22,7 +22,7 @@ public class Shell {
 	}
 
 	private void run() {
-		TUIDisplay.simpleDisplayText("Welcome to MMShell. Type exit or press ^D to exit. Type help for help");
+		TUIDisplay.simpleDisplayText("Welcome to MMShell. Type exit or press ^D to exit. Type help [<cmd>] for help");
 		loop();
 	}
 
