@@ -90,7 +90,7 @@ public class FileSystem {
 	}
 
 	public void createFile(String name) throws ElementExistsException {
-		File f = new File(name, getCurrent(), getUser(), 0);
+		File f = new File(name, getCurrent(), getUser());
 		getCurrent().addChild(f);
 		getCurrent().modify();
 	}
@@ -104,6 +104,20 @@ public class FileSystem {
 	public void remove(FSElement element) {
 		element.getParent().remove(element);
 		element.getParent().modify();
+	}
+
+	public void showFileContents(File file) {
+		TUIDisplay.simpleDisplayText(file.getContents());
+	}
+
+	public void editFileContents(File file, String text) {
+		file.setContents(text);
+		file.modify();
+	}
+
+	public void appendFileContents(File file, String text) {
+		file.setContents(file.getContents() + "\n" + text);
+		file.modify();
 	}
 
 	public FSElement resolvePath(String path) throws InvalidPathException {

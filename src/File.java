@@ -1,14 +1,14 @@
 public class File extends FSElement {
-	private int size;
+	private String contents;
 
-	public File(String name, Directory parent, String owner, int size) {
+	public File(String name, Directory parent, String owner) {
 		super(name, parent, owner);
-		this.size = size;
+		contents = "";
 	}
 
 	@Override
 	public int getSize() {
-		return size;
+		return contents.length();
 	}
 
 	@Override
@@ -24,5 +24,13 @@ public class File extends FSElement {
 	@Override
 	public void accept(FSVisitor v) {
 		v.visit(this);
+	}
+
+	public String getContents() {
+		return contents;
+	}
+
+	public void setContents(String text) {
+		contents = text;
 	}
 }
