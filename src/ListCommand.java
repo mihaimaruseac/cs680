@@ -15,6 +15,7 @@ public abstract class ListCommand extends Command {
 		}
 
 		cmdLine = sb.toString();
+		up = new MultipleExceptionsException();
 	}
 
 	@Override

@@ -44,8 +44,11 @@ public class Shell {
 
 				if (line.length() != 0)
 					parseAndExecute(line);
-			} catch (Exception e) {
+			} catch (MultipleExceptionsException e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
+			} catch (Exception e) {
+				TUIDisplay.simpleDisplayText(e.toString());
+				e.printStackTrace();
 			} finally {
 				s.serialize();
 			}
