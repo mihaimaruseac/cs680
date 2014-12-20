@@ -113,6 +113,9 @@ public class FileSystem {
 	}
 
 	public boolean isAllowed(FSElement e, FSPermissionType p) {
+		if (getUser().isAllowed(UserPermissionType.PERMISSION_ROOT))
+			return true;
+
 		FSPermissionType perm = getUserPathPermission(e);
 
 		return p.compatible(perm);
