@@ -83,6 +83,7 @@ public class HelpCommand extends Command {
 			"sort@<method> <directory>@displays detailed info in sorted order",
 			"touch@<file> [<file_list>]@create file(s)",
 			"undo@@undo last command",
+			"uperm@user@display user-permissions of user",
 		}) {
 			String delim="@";
 			String []parts = s.split(delim);

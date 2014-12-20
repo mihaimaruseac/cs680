@@ -81,6 +81,10 @@ public class FileSystem {
 		u.setPassword(password);
 	}
 
+	public void displayPerms(User u) {
+		u.displayPerms();
+	}
+
 	public void setOwner(FSElement element, User user) {
 		element.setOwner(user);
 	}
