@@ -3,4 +3,3 @@ public class UserExistsException extends InvalidCommandException {
 		super(message + ": user already exists");
 	}
 }
-

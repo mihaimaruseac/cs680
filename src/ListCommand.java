@@ -48,7 +48,13 @@ public abstract class ListCommand extends Command {
 				}
 
 				if (fs.isLeaf(element))
-					els.add(element);
+					if (fs.isAllowed(element.getParent(), FSPermissionType.PERMISSION_READ))
+						els.add(element);
+					else {
+						if (up == null)
+							up = new MultipleExceptionsException();
+						up.addException(new AccessDeniedException("Cannot access " + element.getParent().getName() + " for reading contents"));
+					}
 				else
 					addContentsOfDir(els, (Directory)element);
 			}
@@ -57,6 +63,12 @@ public abstract class ListCommand extends Command {
 	}
 
 	private void addContentsOfDir(ArrayList<FSElement> els, Directory dir) {
-		els.addAll(FileSystem.getInstance().getChildren(dir));
+		if (FileSystem.getInstance().isAllowed(dir, FSPermissionType.PERMISSION_READ))
+			els.addAll(FileSystem.getInstance().getChildren(dir));
+		else {
+			if (up == null)
+				up = new MultipleExceptionsException();
+			up.addException(new AccessDeniedException("Cannot access " + dir.getName() + " for reading contents"));
+		}
 	}
 }

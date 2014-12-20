@@ -112,6 +112,12 @@ public class FileSystem {
 		e.removePermission(u, p);
 	}
 
+	public boolean isAllowed(FSElement e, FSPermissionType p) {
+		FSPermissionType perm = getUserPathPermission(e);
+
+		return p.compatible(perm);
+	}
+
 	public void displayPerms(User u) {
 		u.displayPerms();
 	}
