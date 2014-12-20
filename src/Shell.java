@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.IOError;
 import java.util.ArrayList;
 
 public class Shell {
@@ -45,19 +43,19 @@ public class Shell {
 	}
 
 	private void loop() {
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		FileSystem fs = FileSystem.getInstance();
 		while (onGoing) {
-			TUIDisplay.simpleDisplayText("User: " + fs.getUser().getName()
-					+ ", current dir: " + fs.getName(fs.getCurrent())
-					+ ", type command below, help for help");
+			String prompt = "[" + fs.getUser().getName() + " " + fs.getCurrent().getName() + "]> ";
+			System.console().printf(prompt);
+			System.console().flush();
+
 			try {
-				String line = in.readLine();
+				String line = System.console().readLine();
 				if (line == null)
 					break;
 				else if (line.length() != 0)
 					parseAndExecute(line);
-			} catch (IOException e) {
+			} catch (IOError e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
 			} catch (MultipleExceptionsException e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());

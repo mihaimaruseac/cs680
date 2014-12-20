@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.IOError;
 import java.lang.StringBuilder;
 
 public abstract class EditFileCommand extends FileContentsCommand {
@@ -18,22 +16,23 @@ public abstract class EditFileCommand extends FileContentsCommand {
 
 	private String getUserText() {
 		StringBuilder sb = new StringBuilder();
-		BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 		TUIDisplay.simpleDisplayText("Write text below. End with empty line or ^D");
 
 		while (true) {
 			try {
-				String line = in.readLine();
+				String line = System.console().readLine();
 				if (line == null || line.length() == 0)
 					break;
 
 				sb.append(line);
 				sb.append("\n");
-			} catch (IOException e) {
+			} catch (IOError e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
 			}
 		}
 
-		return sb.toString();
+		String finalString = sb.toString();
+
+		return finalString.substring(0, finalString.length() - 1);
 	}
 }
