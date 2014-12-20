@@ -1,6 +1,6 @@
 public class PasswdCommand extends EditUserCommand {
 	public PasswdCommand() {
-		super(FileSystem.getInstance().getUser().getName(), "passwd");
+		this(FileSystem.getInstance().getUser().getName());
 	}
 
 	public PasswdCommand(String user) {
