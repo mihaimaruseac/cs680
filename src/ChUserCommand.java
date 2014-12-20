@@ -27,14 +27,8 @@ public class ChUserCommand extends Command {
 			else {
 				throw new PasswordsDontMatchException();
 			}
-		} catch (UserNotFoundException e) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(e);
-			throw up;
-		} catch (PasswordsDontMatchException e) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(e);
-			throw up;
+		} catch (InvalidCommandException e) {
+			throw new MultipleExceptionsException(e);
 		}
 	}
 

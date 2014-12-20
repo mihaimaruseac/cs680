@@ -28,7 +28,7 @@ public class HelpCommand extends Command {
 			TUIDisplay.arrayDisplayText(commands);
 		else {
 			ArrayList<ArrayList<String>> columns = new ArrayList<ArrayList<String>>();
-			ArrayList<String> notFounds = new ArrayList<String>();
+			MultipleExceptionsException up = new MultipleExceptionsException();
 
 			for (int i = 0; i < 3; i++)
 				columns.add(new ArrayList<String>());
@@ -36,7 +36,7 @@ public class HelpCommand extends Command {
 			for (String arg : args) {
 				int i = Collections.binarySearch(commands, arg);
 				if (i < 0) {
-					notFounds.add(arg);
+					up.addException(new CommandHelpNotFoundException(arg));
 				} else {
 					columns.get(0).add(commands.get(i));
 					columns.get(1).add(cmndArgs.get(i));
@@ -45,12 +45,8 @@ public class HelpCommand extends Command {
 			}
 
 			TUIDisplay.columnDisplayText(columns);
-			if (notFounds.size() > 0) {
-				MultipleExceptionsException up = new MultipleExceptionsException();
-				for (String cnf : notFounds)
-					up.addException(new CommandHelpNotFoundException(cnf));
+			if (up.isException())
 				throw up;
-			}
 		}
 	}
 

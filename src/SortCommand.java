@@ -20,9 +20,6 @@ public class SortCommand extends DirCommand {
 	}
 
 	private void fail(ArrayList<FSElement> elements) {
-		if (up == null)
-			up = new MultipleExceptionsException();
-
 		up.addException(new InvalidArgumentsCommandException("The only sorting methods are: \"owner\""));
 		elements.clear();
 	}

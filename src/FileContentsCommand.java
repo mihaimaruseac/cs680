@@ -17,28 +17,19 @@ public abstract class FileContentsCommand extends Command {
 
 	private File prepareTarget() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
-		FSElement fileTarget = null;
 
 		try {
-			fileTarget = fs.resolvePath(file);
-		} catch (InvalidPathException e) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(e);
-			throw up;
-		}
+			FSElement fileTarget = fs.resolvePath(file);
 
-		if (!fs.isLeaf(fileTarget)) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(new InvalidArgumentsCommandException(fileTarget.getName() + ": not a file"));
-			throw up;
-		}
+			if (!fs.isLeaf(fileTarget))
+				throw new InvalidArgumentsCommandException(fileTarget.getName() + ": not a file");
 
-		if (!fs.isAllowed(fileTarget, permRequired)) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(new AccessDeniedException("Cannot execute action on " + fileTarget.getName()));
-			throw up;
-		}
+			if (!fs.isAllowed(fileTarget, permRequired))
+				throw new AccessDeniedException("Cannot execute action on " + fileTarget.getName());
 
-		return (File)fileTarget;
+			return (File)fileTarget;
+		} catch (InvalidCommandException e) {
+			throw new MultipleExceptionsException(e);
+		}
 	}
 }

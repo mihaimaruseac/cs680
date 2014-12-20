@@ -19,7 +19,7 @@ public abstract class RmCommand extends Command {
 	@Override
 	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
-		MultipleExceptionsException up = null;
+		MultipleExceptionsException up = new MultipleExceptionsException();
 
 		for (String path : paths) {
 			FSElement element = null;
@@ -28,27 +28,16 @@ public abstract class RmCommand extends Command {
 				element = fs.resolvePath(path);
 				validateElement(path, element);
 
-				if (!fs.isAllowed(element.getParent(), FSPermissionType.PERMISSION_WRITE)) {
-					if (up == null)
-						up = new MultipleExceptionsException();
-					up.addException(new AccessDeniedException("Cannot access " + element.getParent().getName() + " for writing"));
-				}
-			} catch (InvalidPathException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-				up.addException(e);
-				continue;
-			} catch (InvalidArgumentsCommandException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-				up.addException(e);
-				continue;
-			}
+				if (!fs.isAllowed(element.getParent(), FSPermissionType.PERMISSION_WRITE))
+					throw new AccessDeniedException("Cannot access " + element.getParent().getName() + " for writing");
 
-			fs.remove(element);
+				fs.remove(element);
+			} catch (InvalidCommandException e) {
+				up.addException(e);
+			}
 		}
 
-		if (up != null)
+		if (up.isException())
 			throw up;
 	}
 

@@ -16,26 +16,20 @@ public class CdCommand extends Command {
 	@Override
 	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
-		FSElement now = null;
 
 		try {
-			now = fs.resolvePath(path);
-		} catch (InvalidPathException e) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(e);
-			throw up;
+			FSElement now = fs.resolvePath(path);
+
+			if (now.isLeaf())
+				throw new InvalidArgumentsCommandException(path + ": not a directory");
+
+			dir = (Directory)now;
+			lastDir = fs.getCurrent();
+
+			FileSystem.getInstance().setCurrent(dir);
+		} catch (InvalidCommandException e) {
+			throw new MultipleExceptionsException(e);
 		}
-
-		if (now.isLeaf()) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(new InvalidArgumentsCommandException(path + ": not a directory"));
-			throw up;
-		}
-
-		dir = (Directory)now;
-		lastDir = fs.getCurrent();
-
-		FileSystem.getInstance().setCurrent(dir);
 	}
 
 	@Override

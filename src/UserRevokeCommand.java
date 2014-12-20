@@ -1,4 +1,4 @@
-public class UserRevokeCommand extends PermCommand {
+public class UserRevokeCommand extends EditUserCommand {
 	UserPermissionType perm;
 
 	public UserRevokeCommand(String user, UserPermissionType perm) {
@@ -12,10 +12,7 @@ public class UserRevokeCommand extends PermCommand {
 
 		if (fs.isAllowed(UserPermissionType.PERMISSION_REVOKE) && fs.isAllowed(perm))
 			fs.revoke(u, perm);
-		else {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(new AccessDeniedException("Illegal revocation action"));
-			throw up;
-		}
+		else
+			throw new MultipleExceptionsException(new AccessDeniedException("Illegal revocation action"));
 	}
 }

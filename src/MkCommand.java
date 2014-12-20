@@ -21,7 +21,7 @@ public abstract class MkCommand extends Command {
 	@Override
 	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
-		MultipleExceptionsException up = null;
+		MultipleExceptionsException up = new MultipleExceptionsException();
 
 		for (String name : paths) {
 			Directory current = fs.getCurrent();
@@ -40,49 +40,29 @@ public abstract class MkCommand extends Command {
 
 			try {
 				parentDir = fs.resolvePath(dirName);
-			} catch (InvalidPathException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-				up.addException(e);
-				continue;
-			}
 
-			if (fs.isLeaf(parentDir)) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-				up.addException(new InvalidArgumentsCommandException(parentDir.getName() + ": not a directory"));
-				continue;
-			}
+				if (fs.isLeaf(parentDir))
+					throw new InvalidArgumentsCommandException(parentDir.getName() + ": not a directory");
 
-			if (!fs.isAllowed(parentDir, FSPermissionType.PERMISSION_WRITE)) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-				up.addException(new AccessDeniedException("Cannot access " + parentDir.getName() + " for writing"));
-			}
+				if (!fs.isAllowed(parentDir, FSPermissionType.PERMISSION_WRITE))
+					throw new AccessDeniedException("Cannot access " + parentDir.getName() + " for writing");
 
-			try {
 				extraPathSetup();
-			} catch (InvalidPathException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-				up.addException(e);
-				continue;
-			}
+				fs.setCurrent((Directory)parentDir);
 
-			fs.setCurrent((Directory)parentDir);
-
-			try {
-				create(newName);
-			} catch (ElementExistsException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
+				try {
+					create(newName);
+				} catch (ElementExistsException e) {
+					up.addException(e);
+				} finally {
+					fs.setCurrent(current);
+				}
+			} catch (InvalidCommandException e) {
 				up.addException(e);
-			} finally {
-				fs.setCurrent(current);
 			}
 		}
 
-		if (up != null)
+		if (up.isException())
 			throw up;
 	}
 
@@ -102,9 +82,7 @@ public abstract class MkCommand extends Command {
 			Command c = CommandFactory.getCommand(cmd);
 			c.execute();
 		} catch (InvalidCommandException e) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(e);
-			throw up;
+			throw new MultipleExceptionsException(e);
 		}
 	}
 

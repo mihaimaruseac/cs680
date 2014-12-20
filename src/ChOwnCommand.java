@@ -21,7 +21,7 @@ public class ChOwnCommand extends Command {
 	@Override
 	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
-		MultipleExceptionsException up = null;
+		MultipleExceptionsException up = new MultipleExceptionsException();
 
 		for (String path : paths) {
 			try {
@@ -30,25 +30,12 @@ public class ChOwnCommand extends Command {
 				if (!fs.isAllowedChOwn(u, element))
 					throw new AccessDeniedException("Not allowed to change ownership for " + path);
 				fs.setOwner(element, u);
-			} catch (InvalidPathException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-
-				up.addException(e);
-			} catch (UserNotFoundException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-
-				up.addException(e);
-			} catch (AccessDeniedException e) {
-				if (up == null)
-					up = new MultipleExceptionsException();
-
+			} catch (InvalidCommandException e) {
 				up.addException(e);
 			}
 		}
 
-		if (up != null)
+		if (up.isException())
 			throw up;
 	}
 }

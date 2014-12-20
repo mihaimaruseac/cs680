@@ -26,9 +26,7 @@ public abstract class Command {
 	}
 
 	protected void executeUndo() throws MultipleExceptionsException {
-		MultipleExceptionsException e = new MultipleExceptionsException();
-		e.addException(new NotUndoableCommandException());
-		throw e;
+		throw new MultipleExceptionsException(new NotUndoableCommandException());
 	}
 
 	protected abstract void execute() throws MultipleExceptionsException;

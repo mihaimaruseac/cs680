@@ -1,4 +1,4 @@
-public class PathGrantCommand extends PermCommand {
+public class PathGrantCommand extends EditUserCommand {
 	FSPermissionType perm;
 	String path;
 
@@ -14,15 +14,10 @@ public class PathGrantCommand extends PermCommand {
 			FSElement e = fs.resolvePath(path);
 			if (fs.isAllowed(UserPermissionType.PERMISSION_GRANT) && fs.isAllowed(e, perm))
 				fs.grant(u, perm, e);
-			else {
-				MultipleExceptionsException up = new MultipleExceptionsException();
-				up.addException(new AccessDeniedException("Illegal grant action"));
-				throw up;
-			}
-		} catch (InvalidPathException e) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(e);
-			throw up;
+			else
+				throw new MultipleExceptionsException(new AccessDeniedException("Illegal grant action"));
+		} catch (InvalidCommandException e) {
+			throw new MultipleExceptionsException(e);
 		}
 	}
 }

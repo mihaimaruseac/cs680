@@ -18,15 +18,12 @@ public class Shell {
 	}
 
 	private void parseAndExecute(String cmd) throws MultipleExceptionsException {
-		MultipleExceptionsException e = null;
 		Command c = null;
 
 		try {
 			c = CommandFactory.getCommand(cmd);
 		} catch (InvalidCommandException ice) {
-			e = new MultipleExceptionsException();
-			e.addException(ice);
-			throw e;
+			throw new MultipleExceptionsException(ice);
 		}
 
 		if (c.goesToHistory())
@@ -51,9 +48,7 @@ public class Shell {
 
 				if (line.length() != 0)
 					parseAndExecute(line);
-			} catch (IOError e) {
-				TUIDisplay.simpleDisplayText(e.getMessage());
-			} catch (MultipleExceptionsException e) {
+			} catch (Exception e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
 			}
 		}

@@ -1,4 +1,4 @@
-public class UserGrantCommand extends PermCommand {
+public class UserGrantCommand extends EditUserCommand {
 	UserPermissionType perm;
 
 	public UserGrantCommand(String user, UserPermissionType perm) {
@@ -12,10 +12,7 @@ public class UserGrantCommand extends PermCommand {
 
 		if (fs.isAllowed(UserPermissionType.PERMISSION_GRANT) && fs.isAllowed(perm))
 			fs.grant(u, perm);
-		else {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(new AccessDeniedException("Illegal grant action"));
-			throw up;
-		}
+		else
+			throw new MultipleExceptionsException(new AccessDeniedException("Illegal grant action"));
 	}
 }

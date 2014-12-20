@@ -19,7 +19,10 @@ public abstract class EditUserCommand extends Command {
 	}
 
 	protected abstract void executeOnUserFound(User u) throws MultipleExceptionsException;
-	protected abstract void executeOnUserNotFound(UserNotFoundException e) throws MultipleExceptionsException;
+
+	protected void executeOnUserNotFound(UserNotFoundException e) throws MultipleExceptionsException {
+		throw new MultipleExceptionsException(e);
+	};
 
 	protected String readAndUpdatePassword() throws MultipleExceptionsException {
 		System.console().printf("Password: ");
@@ -29,11 +32,8 @@ public abstract class EditUserCommand extends Command {
 		System.console().flush();
 		String cfPassword = new String(System.console().readPassword());
 
-		if (!password.equals(cfPassword)) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(new PasswordsDontMatchException());
-			throw up;
-		}
+		if (!password.equals(cfPassword))
+			throw new MultipleExceptionsException(new PasswordsDontMatchException());
 
 		return password;
 	}

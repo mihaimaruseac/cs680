@@ -8,6 +8,11 @@ public class MultipleExceptionsException extends Exception {
 		exceptions = new ArrayList<InvalidCommandException>();
 	}
 
+	public MultipleExceptionsException(InvalidCommandException e) {
+		this();
+		exceptions.add(e);
+	}
+
 	@Override
 	public String getMessage() {
 		String msg = super.getMessage();
@@ -18,5 +23,9 @@ public class MultipleExceptionsException extends Exception {
 
 	public void addException(InvalidCommandException e) {
 		exceptions.add(e);
+	}
+
+	public boolean isException() {
+		return exceptions.size() > 0;
 	}
 }

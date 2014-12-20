@@ -12,11 +12,8 @@ public class RedoCommand extends Command {
 	protected void execute() throws MultipleExceptionsException {
 		Command c = CommandHistory.getInstance().peek();
 
-		if (c == null) {
-			MultipleExceptionsException up = new MultipleExceptionsException();
-			up.addException(new EmptyHistoryException());
-			throw up;
-		}
+		if (c == null)
+			throw new MultipleExceptionsException(new EmptyHistoryException());
 
 		c.executeCommand();
 	}
