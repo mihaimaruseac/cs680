@@ -40,6 +40,9 @@ public abstract class FSElement {
 		if (user.isAllowed(UserPermissionType.PERMISSION_ROOT))
 			return FSPermissionType.PERMISSION_READ_WRITE;
 
+		if (user.getName().equals(getOwner().getName()))
+			return FSPermissionType.PERMISSION_READ_WRITE;
+
 		FSPermissionType current = perms.get(user.getName());
 		if (current == null)
 			return FSPermissionType.PERMISSION_NONE;
