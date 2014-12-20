@@ -18,6 +18,6 @@ public class RedoCommand extends Command {
 			throw up;
 		}
 
-		c.execute();
+		c.executeCommand();
 	}
 }
