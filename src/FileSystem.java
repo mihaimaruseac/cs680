@@ -72,6 +72,11 @@ public class FileSystem {
 		TUIDisplay.arrayDisplayText(userNames);
 	}
 
+	public void addUser(String userName, String password) {
+		User u = new User(userName, password);
+		users.put(userName, u);
+	}
+
 	public void setOwner(FSElement element, User user) {
 		element.setOwner(user);
 	}

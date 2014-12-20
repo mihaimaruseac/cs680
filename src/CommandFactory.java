@@ -20,6 +20,7 @@ public abstract class CommandFactory {
 			case "ls": return buildLsCommand(tokens);
 			case "lsusers": return buildLsUserCommand(tokens);
 			case "mkdir": return buildMkDirCommand(tokens);
+			case "mkuser": return buildMkUserCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
 			case "rm": return buildRmFileCommand(tokens);
@@ -108,6 +109,12 @@ public abstract class CommandFactory {
 		if (tokens.length == 1)
 			throw new InvalidArgumentsCommandException("Need at least one directory name argument");
 		return new MkDirCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
+	}
+
+	private static MkUserCommand buildMkUserCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length != 2)
+			throw new InvalidArgumentsCommandException("Need exactly one username argument");
+		return new MkUserCommand(tokens[1]);
 	}
 
 	private static MkFileCommand buildMkFileCommand(String[] tokens) throws InvalidArgumentsCommandException {
