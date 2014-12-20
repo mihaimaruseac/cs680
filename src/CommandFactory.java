@@ -22,6 +22,7 @@ public abstract class CommandFactory {
 			case "mkdir": return buildMkDirCommand(tokens);
 			case "mkuser": return buildMkUserCommand(tokens);
 			case "passwd": return buildPasswdCommand(tokens);
+			case "pgrant": return buildPathGrantCommand(tokens);
 			case "pperm": return buildPathPermsCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
@@ -29,6 +30,7 @@ public abstract class CommandFactory {
 			case "rmdir": return buildRmDirCommand(tokens);
 			case "sort": return buildSortCommand(tokens);
 			case "touch": return buildMkFileCommand(tokens);
+			case "ugrant": return buildUserGrantCommand(tokens);
 			case "undo": return buildUndoCommand(tokens);
 			case "uperm": return buildUserPermsCommand(tokens);
 		}
@@ -132,6 +134,21 @@ public abstract class CommandFactory {
 		return new PasswdCommand(tokens[1]);
 	}
 
+	private static PathGrantCommand buildPathGrantCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length <= 3)
+			throw new InvalidArgumentsCommandException("Need exactly a path permission, a path and a user");
+
+		FSPermissionType p = null;
+		switch(tokens[1]) {
+			case "rd": p = FSPermissionType.PERMISSION_READ; break;
+			case "wr": p = FSPermissionType.PERMISSION_WRITE; break;
+			case "rw": p = FSPermissionType.PERMISSION_READ_WRITE; break;
+			default: throw new InvalidArgumentsCommandException("Expected permission string: 'rd', 'wr' or 'rw'");
+		}
+
+		return new PathGrantCommand(tokens[3], p, tokens[2]);
+	}
+
 	private static FsPermsCommand buildPathPermsCommand(String[] tokens) {
 		return new FsPermsCommand(tokens);
 	}
@@ -154,6 +171,22 @@ public abstract class CommandFactory {
 		if (tokens.length == 1)
 			throw new InvalidArgumentsCommandException("Need at least one file name argument");
 		return new RmFileCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
+	}
+
+	private static UserGrantCommand buildUserGrantCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length < 3)
+			throw new InvalidArgumentsCommandException("Need exactly a user permission and a user");
+
+		UserPermissionType p = null;
+		switch(tokens[1]) {
+			case "pw": p = UserPermissionType.PERMISSION_PASSWORD; break;
+			case "gr": p = UserPermissionType.PERMISSION_GRANT; break;
+			case "tk": p = UserPermissionType.PERMISSION_TAKE; break;
+			case "rt": p = UserPermissionType.PERMISSION_ROOT; break;
+			default: throw new InvalidArgumentsCommandException("Expected permission string: 'pw', 'gr', 'tk' or 'rt'");
+		}
+
+		return new UserGrantCommand(tokens[2], p);
 	}
 
 	private static UndoCommand buildUndoCommand(String[] tokens) {

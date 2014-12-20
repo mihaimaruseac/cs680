@@ -76,15 +76,17 @@ public class HelpCommand extends Command {
 			"mkdir@<dir> [<dir_list>]@create directory(ies)",
 			"mkuser@<user>@make new user",
 			"passwd@[<user>]@change password of (current) user",
-			"pperm@[<paths>]@show permissions of current user on paths",
+			"pgrant@<pperm> <path> <user>@grant path permission to user",
+			"pperm@[<path_list>]@show permissions of current user on paths",
 			"pwd@@show current directory",
 			"redo@@redo last command",
 			"rm@<file> [<file_list>]@remove file(s)",
 			"rmdir@<dir> [<dir_list>]@remove empty directory(ies)",
 			"sort@<method> <directory>@displays detailed info in sorted order",
 			"touch@<file> [<file_list>]@create file(s)",
+			"ugrant@<uperm> <user>@give user permission to user",
 			"undo@@undo last command",
-			"uperm@user@display user-permissions of user",
+			"uperm@<user>@display user-permissions of user",
 		}) {
 			String delim="@";
 			String []parts = s.split(delim);

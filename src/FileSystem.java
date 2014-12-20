@@ -96,6 +96,14 @@ public class FileSystem {
 		return u.isValidPassword(password);
 	}
 
+	public void grant(User u, UserPermissionType p) {
+		u.addPermission(p);
+	}
+
+	public void grant(User u, FSPermissionType p, FSElement e) {
+		e.addPermission(u, p);
+	}
+
 	public void displayPerms(User u) {
 		u.displayPerms();
 	}
