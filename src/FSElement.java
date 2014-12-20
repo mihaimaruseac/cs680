@@ -36,7 +36,7 @@ public abstract class FSElement {
 		return perm == current;
 	}
 
-	public FSPermissionType getPermission(User user) {
+	public final FSPermissionType getPermission(User user) {
 		if (user.isAllowed(UserPermissionType.PERMISSION_ROOT))
 			return FSPermissionType.PERMISSION_READ_WRITE;
 
@@ -48,6 +48,10 @@ public abstract class FSElement {
 			return FSPermissionType.PERMISSION_NONE;
 
 		return current;
+	}
+
+	public final HashMap<String, FSPermissionType> getAllPerms() {
+		return perms;
 	}
 
 	public final Directory getParent() {
