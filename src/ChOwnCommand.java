@@ -27,6 +27,8 @@ public class ChOwnCommand extends Command {
 			try {
 				FSElement element = fs.resolvePath(path);
 				User u = fs.getUserByName(user);
+				if (!fs.isAllowedChOwn(u, element))
+					throw new AccessDeniedException("Not allowed to change ownership for " + path);
 				fs.setOwner(element, u);
 			} catch (InvalidPathException e) {
 				if (up == null)
@@ -34,6 +36,11 @@ public class ChOwnCommand extends Command {
 
 				up.addException(e);
 			} catch (UserNotFoundException e) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+
+				up.addException(e);
+			} catch (AccessDeniedException e) {
 				if (up == null)
 					up = new MultipleExceptionsException();
 
