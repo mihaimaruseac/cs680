@@ -118,6 +118,10 @@ public class FileSystem {
 		return p.compatible(perm);
 	}
 
+	public boolean isAllowed(UserPermissionType p) {
+		return getUser().isAllowed(p);
+	}
+
 	public boolean isAllowedChOwn(User u, FSElement e) {
 		return e.getOwner().getName().equals(u.getName()) || u.isAllowed(UserPermissionType.PERMISSION_ROOT);
 	}
