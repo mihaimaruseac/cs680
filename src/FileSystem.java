@@ -1,15 +1,17 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Stack;
 
 public class FileSystem {
 	private Directory root;
 	private Directory current;
-	private User user;
-	private HashMap<String, User> users;
+	private Stack<User> loggedUsers;
+	private HashMap<String, User> availableUsers;
 	private static FileSystem instance;
 
 	private FileSystem() {
-		users = new HashMap<String, User>();
+		availableUsers = new HashMap<String, User>();
+		loggedUsers = new Stack<User>();
 	}
 
 	public static FileSystem getInstance() {
@@ -19,14 +21,14 @@ public class FileSystem {
 	}
 
 	public void setUp() {
-		setUser(users.get("root"));
+		setUser(availableUsers.get("root"));
 		setRoot(new Directory("root", null, getUser()));
 		setCurrent(getRoot());
 	}
 
 	public void setUpUsers(ArrayList<User> users) {
 		for (User u : users)
-			this.users.put(u.getName(), u);
+			this.availableUsers.put(u.getName(), u);
 	}
 
 	public String getName(FSElement element) {
@@ -51,15 +53,24 @@ public class FileSystem {
 	}
 
 	public void setUser(User user) {
-		this.user = user;
+		TUIDisplay.simpleDisplayText("Welcome to MMShell. Type exit or press ^D to exit. Type help [<cmd>] for help");
+		loggedUsers.add(user);
 	}
 
 	public User getUser() {
-		return user;
+		return loggedUsers.peek();
+	}
+
+	public boolean hasMoreUsers() {
+		return loggedUsers.size() > 0;
+	}
+
+	public void logOutUser() {
+		loggedUsers.pop();
 	}
 
 	public User getUserByName(String userName) throws UserNotFoundException {
-		User u = users.get(userName);
+		User u = availableUsers.get(userName);
 
 		if (u == null)
 			throw new UserNotFoundException(userName);
@@ -68,13 +79,13 @@ public class FileSystem {
 	}
 
 	public void listUsers() {
-		ArrayList<String> userNames = new ArrayList<String>(users.keySet());
+		ArrayList<String> userNames = new ArrayList<String>(availableUsers.keySet());
 		TUIDisplay.arrayDisplayText(userNames);
 	}
 
 	public void addUser(String userName, String password) {
 		User u = new User(userName, password);
-		users.put(userName, u);
+		availableUsers.put(userName, u);
 	}
 
 	public void changePassword(User u, String password) {

@@ -3,10 +3,8 @@ import java.util.ArrayList;
 
 public class Shell {
 	private static Shell instance = null;
-	private boolean onGoing;
 
 	private Shell() {
-		onGoing = true;
 	}
 
 	public static Shell getInstance() {
@@ -15,12 +13,7 @@ public class Shell {
 		return instance;
 	}
 
-	public void stopShell() {
-		onGoing = false;
-	}
-
 	private void run() {
-		TUIDisplay.simpleDisplayText("Welcome to MMShell. Type exit or press ^D to exit. Type help [<cmd>] for help");
 		loop();
 	}
 
@@ -44,16 +37,19 @@ public class Shell {
 
 	private void loop() {
 		FileSystem fs = FileSystem.getInstance();
-		while (onGoing) {
+		while (fs.hasMoreUsers()) {
 			String prompt = "[" + fs.getUser().getName() + " " + fs.getCurrent().getName() + "]> ";
 			System.console().printf(prompt);
 			System.console().flush();
 
 			try {
 				String line = System.console().readLine();
-				if (line == null)
-					break;
-				else if (line.length() != 0)
+				if (line == null) {
+					line = "exit";
+					TUIDisplay.simpleDisplayText("");
+				}
+
+				if (line.length() != 0)
 					parseAndExecute(line);
 			} catch (IOError e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
