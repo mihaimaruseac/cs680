@@ -20,7 +20,7 @@ public class User implements Comparable<User> {
 		perms.add(perm);
 	}
 
-	public void retractPermission(UserPermissionType perm) {
+	public void removePermission(UserPermissionType perm) {
 		perms.remove(perm);
 	}
 

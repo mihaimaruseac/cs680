@@ -66,7 +66,9 @@ public class Shell {
 	public static void main(String args[]) {
 		ArrayList<User> users = new ArrayList<User>();
 
-		users.add(new User("root", "TODO"));
+		User root = new User("root", "TODO");
+		root.addPermission(UserPermissionType.PERMISSION_ROOT);
+		users.add(root);
 
 		FileSystem.getInstance().setUpUsers(users);
 		FileSystem.getInstance().setUp();
