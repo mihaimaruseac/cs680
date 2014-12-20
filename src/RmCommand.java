@@ -27,6 +27,12 @@ public abstract class RmCommand extends Command {
 			try {
 				element = fs.resolvePath(path);
 				validateElement(path, element);
+
+				if (!fs.isAllowed(element.getParent(), FSPermissionType.PERMISSION_WRITE)) {
+					if (up == null)
+						up = new MultipleExceptionsException();
+					up.addException(new AccessDeniedException("Cannot access " + element.getParent().getName() + " for writing"));
+				}
 			} catch (InvalidPathException e) {
 				if (up == null)
 					up = new MultipleExceptionsException();

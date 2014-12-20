@@ -54,6 +54,12 @@ public abstract class MkCommand extends Command {
 				continue;
 			}
 
+			if (!fs.isAllowed(parentDir, FSPermissionType.PERMISSION_WRITE)) {
+				if (up == null)
+					up = new MultipleExceptionsException();
+				up.addException(new AccessDeniedException("Cannot access " + parentDir.getName() + " for writing"));
+			}
+
 			try {
 				extraPathSetup();
 			} catch (InvalidPathException e) {
