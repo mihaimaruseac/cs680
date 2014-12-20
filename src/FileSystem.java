@@ -77,6 +77,10 @@ public class FileSystem {
 		users.put(userName, u);
 	}
 
+	public void changePassword(User u, String password) {
+		u.setPassword(password);
+	}
+
 	public void setOwner(FSElement element, User user) {
 		element.setOwner(user);
 	}

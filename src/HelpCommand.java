@@ -75,6 +75,7 @@ public class HelpCommand extends Command {
 			"lsusers@@list all users in the shell",
 			"mkdir@<dir> [<dir_list>]@create directory(ies)",
 			"mkuser@<user>@make new user",
+			"passwd@[<user>]@change password of (current) user",
 			"pwd@@show current directory",
 			"redo@@redo last command",
 			"rm@<file> [<file_list>]@remove file(s)",

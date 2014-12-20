@@ -21,6 +21,7 @@ public abstract class CommandFactory {
 			case "lsusers": return buildLsUserCommand(tokens);
 			case "mkdir": return buildMkDirCommand(tokens);
 			case "mkuser": return buildMkUserCommand(tokens);
+			case "passwd": return buildPasswdCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
 			case "rm": return buildRmFileCommand(tokens);
@@ -121,6 +122,12 @@ public abstract class CommandFactory {
 		if (tokens.length == 1)
 			throw new InvalidArgumentsCommandException("Need at least one file name argument");
 		return new MkFileCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
+	}
+
+	private static PasswdCommand buildPasswdCommand(String[] tokens) throws InvalidArgumentsCommandException {
+		if (tokens.length == 1)
+			return new PasswdCommand();
+		return new PasswdCommand(tokens[1]);
 	}
 
 	private static PWDCommand buildPWDCommand(String[] tokens) {

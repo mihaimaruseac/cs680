@@ -1,37 +1,18 @@
-public class MkUserCommand extends Command {
-	String userName;
-
+public class MkUserCommand extends EditUserCommand {
 	public MkUserCommand(String user) {
-		cmdLine = "mkuser " + user;
-		userName = user;
+		super(user, "mkuser");
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
-		FileSystem fs = FileSystem.getInstance();
-
-		try {
-			User u = fs.getUserByName(userName);
-		} catch (UserNotFoundException e) {
-			System.console().printf("Password: ");
-			System.console().flush();
-			String password = new String(System.console().readPassword());
-			System.console().printf("Confirm password: ");
-			System.console().flush();
-			String cfPassword = new String(System.console().readPassword());
-
-			if (!password.equals(cfPassword)) {
-				MultipleExceptionsException up = new MultipleExceptionsException();
-				up.addException(new PasswordsDontMatchException());
-				throw up;
-			}
-
-			fs.addUser(userName, password);
-			return; /* don't throw the next exception */
-		}
-
+	protected void executeOnUserFound(User u) throws MultipleExceptionsException {
 		MultipleExceptionsException up = new MultipleExceptionsException();
 		up.addException(new UserExistsException(userName));
 		throw up;
+	}
+
+	@Override
+	protected void executeOnUserNotFound(UserNotFoundException e) throws MultipleExceptionsException {
+		String password = readAndUpdatePassword();
+		FileSystem.getInstance().addUser(userName, password);
 	}
 }
