@@ -92,6 +92,10 @@ public class FileSystem {
 		u.setPassword(password);
 	}
 
+	public boolean checkPassword(User u, String password) {
+		return u.isValidPassword(password);
+	}
+
 	public void displayPerms(User u) {
 		u.displayPerms();
 	}

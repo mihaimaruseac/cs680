@@ -13,10 +13,25 @@ public class ChUserCommand extends Command {
 
 	@Override
 	protected void execute() throws MultipleExceptionsException {
+		FileSystem fs = FileSystem.getInstance();
+
 		try {
-			User user = FileSystem.getInstance().getUserByName(userName);
-			FileSystem.getInstance().setUser(user);
+			User user = fs.getUserByName(userName);
+
+			System.console().printf("Password: ");
+			System.console().flush();
+			String password = new String(System.console().readPassword());
+
+			if (fs.checkPassword(user, password))
+				fs.setUser(user);
+			else {
+				throw new PasswordsDontMatchException();
+			}
 		} catch (UserNotFoundException e) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(e);
+			throw up;
+		} catch (PasswordsDontMatchException e) {
 			MultipleExceptionsException up = new MultipleExceptionsException();
 			up.addException(e);
 			throw up;
