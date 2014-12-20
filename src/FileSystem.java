@@ -40,6 +40,13 @@ public class FileSystem {
 		return s;
 	}
 
+	public String getFullPath(FSElement element) {
+		Directory d = element.getParent();
+		if (d == null)
+			return element.getName();
+		return getFullPath(d) + "/" + element.getName();
+	}
+
 	public Directory getRoot() {
 		return root;
 	}

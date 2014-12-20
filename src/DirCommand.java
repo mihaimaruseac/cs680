@@ -23,7 +23,7 @@ public class DirCommand extends ListCommand {
 			sizes.add(""+fs.getSize(e));
 
 			if (fs.isLink(e))
-				targets.add(" -> " + fs.getName(fs.getTarget((Link)e)));
+				targets.add(" -> " + fs.getFullPath(fs.getTarget((Link)e)));
 			else
 				targets.add("");
 		}

@@ -48,7 +48,7 @@ public class Serializer {
 
 	private void serializeLink(Link l) {
 		serializeFSElement(l);
-		String target = l.getTarget().getName();
+		String target = FileSystem.getInstance().getFullPath(l.getTarget());
 		System.out.println(l + ": " + target);
 	}
 
