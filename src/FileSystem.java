@@ -119,6 +119,9 @@ public class FileSystem {
 	}
 
 	public boolean isAllowed(UserPermissionType p) {
+		if (getUser().isAllowed(UserPermissionType.PERMISSION_ROOT))
+			return true;
+
 		return getUser().isAllowed(p);
 	}
 
