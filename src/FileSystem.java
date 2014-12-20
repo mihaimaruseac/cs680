@@ -104,6 +104,14 @@ public class FileSystem {
 		e.addPermission(u, p);
 	}
 
+	public void revoke(User u, UserPermissionType p) {
+		u.removePermission(p);
+	}
+
+	public void revoke(User u, FSPermissionType p, FSElement e) {
+		e.removePermission(u, p);
+	}
+
 	public void displayPerms(User u) {
 		u.displayPerms();
 	}

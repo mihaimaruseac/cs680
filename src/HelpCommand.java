@@ -78,6 +78,7 @@ public class HelpCommand extends Command {
 			"passwd@[<user>]@change password of (current) user",
 			"pgrant@<pperm> <path> <user>@grant path permission to user",
 			"pperm@[<path_list>]@show permissions of current user on paths",
+			"prevoke@<pperm> <path> <user>@revoke path permission from user",
 			"pwd@@show current directory",
 			"redo@@redo last command",
 			"rm@<file> [<file_list>]@remove file(s)",
@@ -87,6 +88,7 @@ public class HelpCommand extends Command {
 			"ugrant@<uperm> <user>@give user permission to user",
 			"undo@@undo last command",
 			"uperm@<user>@display user-permissions of user",
+			"urevoke@<uperm> <user>@revoke user permission from user",
 		}) {
 			String delim="@";
 			String []parts = s.split(delim);

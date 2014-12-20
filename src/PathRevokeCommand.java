@@ -1,9 +1,9 @@
-public class PathGrantCommand extends PermCommand {
+public class PathRevokeCommand extends PermCommand {
 	FSPermissionType perm;
 	String path;
 
-	public PathGrantCommand(String user, FSPermissionType perm, String path) {
-		super(user, "pgrant " + perm + " " + path);
+	public PathRevokeCommand(String user, FSPermissionType perm, String path) {
+		super(user, "prevoke " + perm + " " + path);
 		this.perm = perm;
 	}
 
@@ -12,7 +12,7 @@ public class PathGrantCommand extends PermCommand {
 		try {
 			FileSystem fs = FileSystem.getInstance();
 			FSElement e = fs.resolvePath(path);
-			fs.grant(u, perm, e);
+			fs.revoke(u, perm, e);
 		} catch (InvalidPathException e) {
 			MultipleExceptionsException up = new MultipleExceptionsException();
 			up.addException(e);

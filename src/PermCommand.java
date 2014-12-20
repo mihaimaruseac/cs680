@@ -1,5 +1,5 @@
-public abstract class GrantCommand extends EditUserCommand {
-	public GrantCommand(String user, String base) {
+public abstract class PermCommand extends EditUserCommand {
+	public PermCommand(String user, String base) {
 		super(user, base);
 	}
 

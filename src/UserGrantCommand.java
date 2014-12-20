@@ -1,4 +1,4 @@
-public class UserGrantCommand extends GrantCommand {
+public class UserGrantCommand extends PermCommand {
 	UserPermissionType perm;
 
 	public UserGrantCommand(String user, UserPermissionType perm) {
