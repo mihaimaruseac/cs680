@@ -76,6 +76,7 @@ public class HelpCommand extends Command {
 			"mkdir@<dir> [<dir_list>]@create directory(ies)",
 			"mkuser@<user>@make new user",
 			"passwd@[<user>]@change password of (current) user",
+			"pperm@[<paths>]@show permissions of current user on paths",
 			"pwd@@show current directory",
 			"redo@@redo last command",
 			"rm@<file> [<file_list>]@remove file(s)",

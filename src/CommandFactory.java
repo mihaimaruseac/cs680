@@ -22,6 +22,7 @@ public abstract class CommandFactory {
 			case "mkdir": return buildMkDirCommand(tokens);
 			case "mkuser": return buildMkUserCommand(tokens);
 			case "passwd": return buildPasswdCommand(tokens);
+			case "pperm": return buildPathPermsCommand(tokens);
 			case "pwd": return buildPWDCommand(tokens);
 			case "redo": return buildRedoCommand(tokens);
 			case "rm": return buildRmFileCommand(tokens);
@@ -129,6 +130,10 @@ public abstract class CommandFactory {
 		if (tokens.length == 1)
 			return new PasswdCommand();
 		return new PasswdCommand(tokens[1]);
+	}
+
+	private static FsPermsCommand buildPathPermsCommand(String[] tokens) {
+		return new FsPermsCommand(tokens);
 	}
 
 	private static PWDCommand buildPWDCommand(String[] tokens) {

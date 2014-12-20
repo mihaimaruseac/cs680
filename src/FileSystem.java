@@ -85,6 +85,10 @@ public class FileSystem {
 		u.displayPerms();
 	}
 
+	public FSPermissionType getUserPathPermission(FSElement e) {
+		return e.getPermission(getUser());
+	}
+
 	public void setOwner(FSElement element, User user) {
 		element.setOwner(user);
 	}

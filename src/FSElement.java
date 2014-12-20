@@ -36,6 +36,17 @@ public abstract class FSElement {
 		return perm == current;
 	}
 
+	public FSPermissionType getPermission(User user) {
+		if (user.isAllowed(UserPermissionType.PERMISSION_ROOT))
+			return FSPermissionType.PERMISSION_READ_WRITE;
+
+		FSPermissionType current = perms.get(user.getName());
+		if (current == null)
+			return FSPermissionType.PERMISSION_NONE;
+
+		return current;
+	}
+
 	public final Directory getParent() {
 		return parent;
 	}
