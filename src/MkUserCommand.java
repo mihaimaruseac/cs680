@@ -12,7 +12,15 @@ public class MkUserCommand extends EditUserCommand {
 
 	@Override
 	protected void executeOnUserNotFound(UserNotFoundException e) throws MultipleExceptionsException {
+		FileSystem fs = FileSystem.getInstance();
+
+		if (!fs.isAllowed(UserPermissionType.PERMISSION_ROOT)) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(new AccessDeniedException("Must have root access to create users"));
+			throw up;
+		}
+
 		String password = readAndUpdatePassword();
-		FileSystem.getInstance().addUser(userName, password);
+		fs.addUser(userName, password);
 	}
 }
