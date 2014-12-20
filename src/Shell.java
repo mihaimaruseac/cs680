@@ -2,15 +2,11 @@ import java.io.IOError;
 import java.util.ArrayList;
 
 public class Shell {
-	private static Shell instance = null;
+	private Serializer s;
 
-	private Shell() {
-	}
-
-	public static Shell getInstance() {
-		if (instance == null)
-			instance = new Shell();
-		return instance;
+	public Shell() {
+		s = new Serializer();
+		// TODO: Serializer
 	}
 
 	private void run() {
@@ -50,6 +46,8 @@ public class Shell {
 					parseAndExecute(line);
 			} catch (Exception e) {
 				TUIDisplay.simpleDisplayText(e.getMessage());
+			} finally {
+				s.serialize();
 			}
 		}
 	}
@@ -63,6 +61,6 @@ public class Shell {
 
 		FileSystem.getInstance().setUpUsers(users);
 		FileSystem.getInstance().setUp();
-		Shell.getInstance().run();
+		new Shell().run();
 	}
 }
