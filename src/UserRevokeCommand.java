@@ -8,6 +8,14 @@ public class UserRevokeCommand extends PermCommand {
 
 	@Override
 	protected void executeOnUserFound(User u) throws MultipleExceptionsException {
-		FileSystem.getInstance().revoke(u, perm);
+		FileSystem fs = FileSystem.getInstance();
+
+		if (fs.isAllowed(UserPermissionType.PERMISSION_REVOKE) && fs.isAllowed(perm))
+			fs.revoke(u, perm);
+		else {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(new AccessDeniedException("Illegal revocation action"));
+			throw up;
+		}
 	}
 }

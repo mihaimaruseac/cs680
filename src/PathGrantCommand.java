@@ -12,7 +12,13 @@ public class PathGrantCommand extends PermCommand {
 		try {
 			FileSystem fs = FileSystem.getInstance();
 			FSElement e = fs.resolvePath(path);
-			fs.grant(u, perm, e);
+			if (fs.isAllowed(UserPermissionType.PERMISSION_GRANT) && fs.isAllowed(e, perm))
+				fs.grant(u, perm, e);
+			else {
+				MultipleExceptionsException up = new MultipleExceptionsException();
+				up.addException(new AccessDeniedException("Illegal grant action"));
+				throw up;
+			}
 		} catch (InvalidPathException e) {
 			MultipleExceptionsException up = new MultipleExceptionsException();
 			up.addException(e);
