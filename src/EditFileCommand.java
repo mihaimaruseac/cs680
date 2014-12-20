@@ -4,6 +4,7 @@ import java.lang.StringBuilder;
 public abstract class EditFileCommand extends FileContentsCommand {
 	public EditFileCommand(String file, String base) {
 		super(file, base);
+		permRequired = FSPermissionType.PERMISSION_WRITE;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 public abstract class FileContentsCommand extends Command {
 	String file;
+	FSPermissionType permRequired;
 
 	public FileContentsCommand(String file, String base) {
 		this.file = file;
@@ -29,6 +30,12 @@ public abstract class FileContentsCommand extends Command {
 		if (!fs.isLeaf(fileTarget)) {
 			MultipleExceptionsException up = new MultipleExceptionsException();
 			up.addException(new InvalidArgumentsCommandException(fileTarget.getName() + ": not a file"));
+			throw up;
+		}
+
+		if (!fs.isAllowed(fileTarget, permRequired)) {
+			MultipleExceptionsException up = new MultipleExceptionsException();
+			up.addException(new AccessDeniedException("Cannot execute action on " + fileTarget.getName()));
 			throw up;
 		}
 
