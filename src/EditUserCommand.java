@@ -2,7 +2,7 @@ public abstract class EditUserCommand extends Command {
 	String userName;
 
 	public EditUserCommand(String user, String base) {
-		cmdLine = base + user;
+		cmdLine = base + " " + user;
 		userName = user;
 	}
 
