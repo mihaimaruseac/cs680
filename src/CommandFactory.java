@@ -181,7 +181,7 @@ public abstract class CommandFactory {
 		switch(tokens[1]) {
 			case "pw": p = UserPermissionType.PERMISSION_PASSWORD; break;
 			case "gr": p = UserPermissionType.PERMISSION_GRANT; break;
-			case "rv": p = UserPermissionType.PERMISSION_TAKE; break;
+			case "rv": p = UserPermissionType.PERMISSION_REVOKE; break;
 			case "rt": p = UserPermissionType.PERMISSION_ROOT; break;
 			default: throw new InvalidArgumentsCommandException("Expected permission string: 'pw', 'gr', 'rv' or 'rt'");
 		}
