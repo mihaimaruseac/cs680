@@ -7,7 +7,7 @@ public abstract class FileContentsCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		File fileTarget = prepareTarget();
 		workOn(fileTarget);
 	}

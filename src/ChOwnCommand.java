@@ -19,7 +19,7 @@ public class ChOwnCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
 		MultipleExceptionsException up = null;
 

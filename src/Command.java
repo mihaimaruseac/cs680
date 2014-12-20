@@ -1,7 +1,17 @@
 public abstract class Command {
-	String cmdLine;
+	protected String cmdLine;
+	private boolean successfull;
 
-	public abstract void execute() throws MultipleExceptionsException;
+	public final void executeCommand() throws MultipleExceptionsException {
+		successfull = false;
+		execute();
+		successfull = true;
+	}
+
+	public final void executeUndoCommand() throws MultipleExceptionsException {
+		if (successfull)
+			executeUndo();
+	}
 
 	public final String getCommandLine() {
 		return cmdLine;
@@ -15,9 +25,11 @@ public abstract class Command {
 		return true;
 	}
 
-	public void executeUndo() throws MultipleExceptionsException {
+	protected void executeUndo() throws MultipleExceptionsException {
 		MultipleExceptionsException e = new MultipleExceptionsException();
 		e.addException(new NotUndoableCommandException());
 		throw e;
 	}
+
+	protected abstract void execute() throws MultipleExceptionsException;
 }

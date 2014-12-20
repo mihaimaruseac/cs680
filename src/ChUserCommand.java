@@ -12,7 +12,7 @@ public class ChUserCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		try {
 			User user = FileSystem.getInstance().getUserByName(userName);
 			FileSystem.getInstance().setUser(user);
@@ -24,7 +24,7 @@ public class ChUserCommand extends Command {
 	}
 
 	@Override
-	public void executeUndo() throws MultipleExceptionsException {
+	protected void executeUndo() throws MultipleExceptionsException {
 		FileSystem.getInstance().logOutUser();
 	}
 }

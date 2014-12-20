@@ -23,7 +23,7 @@ public class HelpCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		if (args.length == 0)
 			TUIDisplay.arrayDisplayText(commands);
 		else {

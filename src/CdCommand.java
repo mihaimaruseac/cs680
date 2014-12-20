@@ -14,7 +14,7 @@ public class CdCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
 		FSElement now = null;
 
@@ -44,7 +44,7 @@ public class CdCommand extends Command {
 	}
 
 	@Override
-	public void executeUndo() throws MultipleExceptionsException {
+	protected void executeUndo() throws MultipleExceptionsException {
 		FileSystem.getInstance().setCurrent(lastDir);
 	}
 }

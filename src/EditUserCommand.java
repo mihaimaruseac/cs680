@@ -7,7 +7,7 @@ public abstract class EditUserCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
 
 		try {

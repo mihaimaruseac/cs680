@@ -9,7 +9,7 @@ public class HistoryCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		CommandHistory.getInstance().printCommands();
 	}
 }

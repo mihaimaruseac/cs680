@@ -4,7 +4,7 @@ public class PWDCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		FileSystem fs = FileSystem.getInstance();
 		TUIDisplay.simpleDisplayText(fs.getName(fs.getCurrent()));
 	}

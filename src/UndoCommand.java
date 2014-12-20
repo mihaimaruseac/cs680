@@ -9,7 +9,7 @@ public class UndoCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		Command c = CommandHistory.getInstance().peek();
 
 		if (c == null) {
@@ -18,6 +18,6 @@ public class UndoCommand extends Command {
 			throw up;
 		}
 
-		c.executeUndo();
+		c.executeUndoCommand();
 	}
 }

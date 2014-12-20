@@ -32,7 +32,7 @@ public class Shell {
 		if (c.goesToHistory())
 			CommandHistory.getInstance().push(c);
 
-		c.execute();
+		c.executeCommand();
 	}
 
 	private void loop() {

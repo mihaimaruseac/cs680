@@ -18,7 +18,7 @@ public abstract class ListCommand extends Command {
 	}
 
 	@Override
-	public void execute() throws MultipleExceptionsException {
+	protected void execute() throws MultipleExceptionsException {
 		ArrayList<FSElement> elements = getElementsToDisplay();
 		showInfo(elements);
 
