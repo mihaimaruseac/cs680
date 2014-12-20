@@ -1,6 +1,6 @@
 public enum UserPermissionType implements Permission {
 	PERMISSION_PASSWORD,
 	PERMISSION_GRANT,
-	PERMISSION_TAKE,
+	PERMISSION_REVOKE,
 	PERMISSION_ROOT,
 }
