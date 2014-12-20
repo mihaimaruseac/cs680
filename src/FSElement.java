@@ -1,4 +1,5 @@
 import java.util.Date;
+import java.util.HashMap;
 
 public abstract class FSElement {
 	private String name;
@@ -6,6 +7,7 @@ public abstract class FSElement {
 	private Directory parent;
 	private Date created;
 	private Date lastModified;
+	private HashMap<String, FSPermissionType> perms;
 
 	public FSElement(String name, Directory parent, User owner) {
 		this.name = name;
@@ -13,33 +15,52 @@ public abstract class FSElement {
 		this.owner = owner;
 		created = new Date();
 		lastModified = created;
+		perms = new HashMap<String, FSPermissionType>();
 	}
 
-	public Directory getParent() {
+	public final void addPermission(User user, FSPermissionType perm) {
+		perms.put(user.getName(), perm);
+	}
+
+	public final void removePermission(User user, FSPermissionType perm) {
+		String uName = user.getName();
+		FSPermissionType current = perms.get(uName);
+
+		if (current == perm)
+			perms.remove(user.getName());
+	}
+
+	public final boolean isAllowed(User user, FSPermissionType perm) {
+		String uName = user.getName();
+		FSPermissionType current = perms.get(uName);
+		return perm == current;
+	}
+
+	public final Directory getParent() {
 		return parent;
 	}
 
-	public String getName() {
+	public final String getName() {
 		return name;
 	}
 
-	public User getOwner() {
+	public final User getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User user) {
+	public final void setOwner(User user) {
 		owner = user;
 	}
 
-	public void modify() {
+	public final void modify() {
 		lastModified = new Date();
 	}
 
-	public Date getCreationDate() {
+	public final Date getCreationDate() {
 		return created;
 	}
 
-	public Date getModificationDate() {
+	public final Date getModificationDate() {
 		return lastModified;
 	}
 
