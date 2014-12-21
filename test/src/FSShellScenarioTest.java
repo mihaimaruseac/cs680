@@ -26,12 +26,27 @@ public class FSShellScenarioTest {
 		cmds.add("rm file3");
 		cmds.add("cd");
 		cmds.add("pwd");
+		cmds.add("exit");
 
-		String input = "";
+		String output = runScenario(cmds, "");
 
-		String output = runScenario(cmds, input);
+		String expectedOutput = "root/\n";
+		String actualOutput = output;
+		assertThat(actualOutput, is(expectedOutput));
 
-		System.out.println(output);
+		Directory expectedDir = FileSystem.getInstance().getRoot();
+		Directory actualDir = FileSystem.getInstance().getCurrent();
+		assertThat(actualDir, is(expectedDir));
+
+		Directory d = FileSystem.getInstance().getCurrent();
+		int expectedElems = 5;
+		int actualElems = d.getChildren().size();
+		assertThat(actualElems, is(expectedElems));
+
+		d = (Directory)FileSystem.getInstance().resolvePath("test2");
+		expectedElems = 0;
+		actualElems = d.getChildren().size();
+		assertThat(actualElems, is(expectedElems));
 	}
 
 	private String runScenario(ArrayList<String> cmds, String input) throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
