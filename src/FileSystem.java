@@ -21,6 +21,7 @@ public class FileSystem {
 	}
 
 	public void setUp() {
+		loggedUsers.clear();
 		setUser(availableUsers.get("root"));
 		setRoot(new Directory("root", null, getUser()));
 		setCurrent(getRoot());
@@ -43,7 +44,7 @@ public class FileSystem {
 	public String getFullPath(FSElement element) {
 		Directory d = element.getParent();
 		if (d == null)
-			return element.getName();
+			return "/" + element.getName();
 		return getFullPath(d) + "/" + element.getName();
 	}
 
@@ -108,7 +109,7 @@ public class FileSystem {
 	}
 
 	public void grant(User u, FSPermissionType p, FSElement e) {
-		e.addPermission(u, p);
+		e.addPermission(u.getName(), p);
 	}
 
 	public void revoke(User u, UserPermissionType p) {
@@ -116,7 +117,7 @@ public class FileSystem {
 	}
 
 	public void revoke(User u, FSPermissionType p, FSElement e) {
-		e.removePermission(u, p);
+		e.removePermission(u.getName(), p);
 	}
 
 	public boolean isAllowed(FSElement e, FSPermissionType p) {

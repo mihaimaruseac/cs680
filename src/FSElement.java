@@ -18,22 +18,15 @@ public abstract class FSElement {
 		perms = new HashMap<String, FSPermissionType>();
 	}
 
-	public final void addPermission(User user, FSPermissionType perm) {
-		perms.put(user.getName(), perm);
+	public final void addPermission(String user, FSPermissionType perm) {
+		perms.put(user, perm);
 	}
 
-	public final void removePermission(User user, FSPermissionType perm) {
-		String uName = user.getName();
-		FSPermissionType current = perms.get(uName);
+	public final void removePermission(String user, FSPermissionType perm) {
+		FSPermissionType current = perms.get(user);
 
 		if (current == perm)
-			perms.remove(user.getName());
-	}
-
-	public final boolean isAllowed(User user, FSPermissionType perm) {
-		String uName = user.getName();
-		FSPermissionType current = perms.get(uName);
-		return perm == current;
+			perms.remove(user);
 	}
 
 	public final FSPermissionType getPermission(User user) {
