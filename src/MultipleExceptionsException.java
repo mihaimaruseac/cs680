@@ -28,4 +28,8 @@ public class MultipleExceptionsException extends Exception {
 	public boolean isException() {
 		return exceptions.size() > 0;
 	}
+
+	public ArrayList<InvalidCommandException> getExceptions() {
+		return exceptions;
+	}
 }
