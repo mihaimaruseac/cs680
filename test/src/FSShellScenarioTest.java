@@ -6,9 +6,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.InputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.io.InputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -53,19 +55,110 @@ public class FSShellScenarioTest {
 	public void testScenario2() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
 		ArrayList<String> cmds = new ArrayList<String>();
 		cmds.add("lsusers");
+		cmds.add("touch a b");
 		cmds.add("dir");
 		cmds.add("ls");
 		cmds.add("sort owner");
 		cmds.add("uperm root");
+		cmds.add("rm a b");
+		runScenario(cmds, "");
+	}
 
-		String expected = runScenario(cmds, "");
-		String actual = "";
+	@Test(expected=MultipleExceptionsException.class)
+	public void testScenario3() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("undo");
+		runScenario(cmds, "");
+	}
+
+	@Test(expected=MultipleExceptionsException.class)
+	public void testScenario4() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("redo");
+		runScenario(cmds, "");
+	}
+
+	@Test(expected=MultipleExceptionsException.class)
+	public void testScenario5() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		for (int i = 0; i < 10; i++) cmds.add("ls");
+		cmds.add("touch file");
+		cmds.add("undo");
+		cmds.add("redo");
+		cmds.add("redo");
+		runScenario(cmds, "");
+	}
+
+	@Test
+	public void testScenario6() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("ls");
+		cmds.add("touch file");
+		cmds.add("history");
+		runScenario(cmds, "");
+	}
+
+	@Test(expected=MultipleExceptionsException.class)
+	public void testScenario7() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("help");
+		cmds.add("help history");
+		cmds.add("help file");
+		runScenario(cmds, "");
+	}
+
+	@Test(expected=MultipleExceptionsException.class)
+	public void testScenario8() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("mkuser test");
+		runScenario(cmds, "a\nb\n");
+	}
+
+	@Test
+	public void testScenario9() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("mkuser test");
+		cmds.add("lsusers");
+		String actual = runScenario(cmds, "a\na\n").trim();
+		String expected = "Password: Confirm password: test root";
 		assertThat(actual, is(expected));
 	}
 
+	@Test(expected=MultipleExceptionsException.class)
+	public void testScenario10() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("passwd");
+		runScenario(cmds, "a\nb\n");
+	}
+
+	@Test
+	public void testScenario11() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException, IOException, Exception {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("touch file");
+		cmds.add("mkdir test");
+		cmds.add("ln file link");
+		cmds.add("mkuser test");
+		cmds.add("pgrant rw root test");
+		cmds.add("ugrant gr test");
+		runScenario(cmds, "a\na\n");
+
+		File f = File.createTempFile("tmp_ser", "");
+		f.deleteOnExit();
+		Serializer cut = new Serializer(f.getAbsolutePath());
+		cut.serialize();
+		cut.deserialize();
+	}
+
+	@Test
+	public void testScenario12() throws InvalidCommandException, MultipleExceptionsException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("touch file");
+		cmds.add("touch file");
+		try {runScenario(cmds, "a\na\n");} catch (Exception e) {}
+		CommandFactory.getCommand("undo").execute();
+	}
+
 	private String runScenario(ArrayList<String> cmds, String input) throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
-		InputStream oldIn = System.in;
-		PrintStream oldOut = System.out;
 		ByteArrayOutputStream baos = setupConsole(input);
 		setupCUTs();
 
@@ -76,12 +169,11 @@ public class FSShellScenarioTest {
 			c.executeCommand();
 		}
 
-		System.setIn(oldIn);
-		System.setOut(oldOut);
 		return baos.toString();
 	}
 
 	private void setupCUTs() {
+		Console.resetConsole();
 		ArrayList<User> users = new ArrayList<User>();
 		User root = new User("root", "TODO");
 		root.addPermission(UserPermissionType.PERMISSION_ROOT);

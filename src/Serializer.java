@@ -284,22 +284,19 @@ public class Serializer {
 		return in.readUTF();
 	}
 
-	private UserPermissionType readUserPermission(DataInputStream in) throws Exception {
-		switch (readString(in)) {
-			case "PERMISSION_PASSWORD": return UserPermissionType.PERMISSION_PASSWORD;
-			case "PERMISSION_GRANT": return UserPermissionType.PERMISSION_GRANT;
-			case "PERMISSION_REVOKE": return UserPermissionType.PERMISSION_REVOKE;
-			case "PERMISSION_ROOT": return UserPermissionType.PERMISSION_ROOT;
-			default: throw new Exception("Invalid serialized file");
+	private UserPermissionType readUserPermission(DataInputStream in)  throws Exception {
+		try {
+			return UserPermissionType.valueOf(readString(in));
+		} catch (Exception e) {
+			throw new Exception("Invalid serialized file");
 		}
 	}
 
 	private FSPermissionType readFSPermission(DataInputStream in) throws Exception {
-		switch (readString(in)) {
-			case "PERMISSION_READ": return FSPermissionType.PERMISSION_READ;
-			case "PERMISSION_WRITE": return FSPermissionType.PERMISSION_WRITE;
-			case "PERMISSION_READ_WRITE": return FSPermissionType.PERMISSION_READ_WRITE;
-			default: throw new Exception("Invalid serialized file");
+		try {
+			return FSPermissionType.valueOf(readString(in));
+		} catch (Exception e) {
+			throw new Exception("Invalid serialized file");
 		}
 	}
 }

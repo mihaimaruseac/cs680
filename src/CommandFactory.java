@@ -5,38 +5,35 @@ public abstract class CommandFactory {
 		String delims = "[ ]+";
 		String[] tokens = cmd.trim().split(delims);
 
-		switch(tokens[0]) {
-			case "append": return buildAppendCommand(tokens);
-			case "cat": return buildCatCommand(tokens);
-			case "cd": return buildCdCommand(tokens);
-			case "chown": return buildChOwnCommand(tokens);
-			case "chuser": return buildChUserCommand(tokens);
-			case "dir": return buildDirCommand(tokens);
-			case "edit": return buildWriteCommand(tokens);
-			case "exit": return buildExitCommand(tokens);
-			case "help": return buildHelpCommand(tokens);
-			case "history": return buildHistoryCommand(tokens);
-			case "ln": return buildLnCommand(tokens);
-			case "ls": return buildLsCommand(tokens);
-			case "lsusers": return buildLsUserCommand(tokens);
-			case "mkdir": return buildMkDirCommand(tokens);
-			case "mkuser": return buildMkUserCommand(tokens);
-			case "passwd": return buildPasswdCommand(tokens);
-			case "pgrant": return buildPathGrantCommand(tokens);
-			case "pperm": return buildPathPermsCommand(tokens);
-			case "prevoke": return buildPathRevokeCommand(tokens);
-			case "pwd": return buildPWDCommand(tokens);
-			case "redo": return buildRedoCommand(tokens);
-			case "rm": return buildRmFileCommand(tokens);
-			case "rmdir": return buildRmDirCommand(tokens);
-			case "sort": return buildSortCommand(tokens);
-			case "touch": return buildMkFileCommand(tokens);
-			case "ugrant": return buildUserGrantCommand(tokens);
-			case "undo": return buildUndoCommand(tokens);
-			case "uperm": return buildUserPermsCommand(tokens);
-			case "urevoke": return buildUserRevokeCommand(tokens);
-		}
-
+		if (tokens[0].equals("append")) return buildAppendCommand(tokens);
+		else if (tokens[0].equals("cat")) return buildCatCommand(tokens);
+		else if (tokens[0].equals("cd")) return buildCdCommand(tokens);
+		else if (tokens[0].equals("chown")) return buildChOwnCommand(tokens);
+		else if (tokens[0].equals("chuser")) return buildChUserCommand(tokens);
+		else if (tokens[0].equals("dir")) return buildDirCommand(tokens);
+		else if (tokens[0].equals("edit")) return buildWriteCommand(tokens);
+		else if (tokens[0].equals("exit")) return buildExitCommand(tokens);
+		else if (tokens[0].equals("help")) return buildHelpCommand(tokens);
+		else if (tokens[0].equals("history")) return buildHistoryCommand(tokens);
+		else if (tokens[0].equals("ln")) return buildLnCommand(tokens);
+		else if (tokens[0].equals("ls")) return buildLsCommand(tokens);
+		else if (tokens[0].equals("lsusers")) return buildLsUserCommand(tokens);
+		else if (tokens[0].equals("mkdir")) return buildMkDirCommand(tokens);
+		else if (tokens[0].equals("mkuser")) return buildMkUserCommand(tokens);
+		else if (tokens[0].equals("passwd")) return buildPasswdCommand(tokens);
+		else if (tokens[0].equals("pgrant")) return buildPathGrantCommand(tokens);
+		else if (tokens[0].equals("pperm")) return buildPathPermsCommand(tokens);
+		else if (tokens[0].equals("prevoke")) return buildPathRevokeCommand(tokens);
+		else if (tokens[0].equals("pwd")) return buildPWDCommand(tokens);
+		else if (tokens[0].equals("redo")) return buildRedoCommand(tokens);
+		else if (tokens[0].equals("rm")) return buildRmFileCommand(tokens);
+		else if (tokens[0].equals("rmdir")) return buildRmDirCommand(tokens);
+		else if (tokens[0].equals("sort")) return buildSortCommand(tokens);
+		else if (tokens[0].equals("touch")) return buildMkFileCommand(tokens);
+		else if (tokens[0].equals("ugrant")) return buildUserGrantCommand(tokens);
+		else if (tokens[0].equals("undo")) return buildUndoCommand(tokens);
+		else if (tokens[0].equals("uperm")) return buildUserPermsCommand(tokens);
+		else if (tokens[0].equals("urevoke")) return buildUserRevokeCommand(tokens);
 		throw new InvalidCommandException(tokens[0] + ": no such command");
 	}
 
@@ -141,13 +138,10 @@ public abstract class CommandFactory {
 			throw new InvalidArgumentsCommandException("Need exactly a path permission, a path and a user");
 
 		FSPermissionType p = null;
-		switch(tokens[1]) {
-			case "rd": p = FSPermissionType.PERMISSION_READ; break;
-			case "wr": p = FSPermissionType.PERMISSION_WRITE; break;
-			case "rw": p = FSPermissionType.PERMISSION_READ_WRITE; break;
-			default: throw new InvalidArgumentsCommandException("Expected permission string: 'rd', 'wr' or 'rw'");
-		}
-
+		if (tokens[1].equals("rd")) p = FSPermissionType.PERMISSION_READ;
+		else if (tokens[1].equals("wr")) p = FSPermissionType.PERMISSION_WRITE;
+		else if (tokens[1].equals("rw")) p = FSPermissionType.PERMISSION_READ_WRITE;
+		else throw new InvalidArgumentsCommandException("Expected permission string: 'rd', 'wr' or 'rw'");
 		return new PathGrantCommand(tokens[3], p, tokens[2]);
 	}
 
@@ -156,13 +150,10 @@ public abstract class CommandFactory {
 			throw new InvalidArgumentsCommandException("Need exactly a path permission, a path and a user");
 
 		FSPermissionType p = null;
-		switch(tokens[1]) {
-			case "rd": p = FSPermissionType.PERMISSION_READ; break;
-			case "wr": p = FSPermissionType.PERMISSION_WRITE; break;
-			case "rw": p = FSPermissionType.PERMISSION_READ_WRITE; break;
-			default: throw new InvalidArgumentsCommandException("Expected permission string: 'rd', 'wr' or 'rw'");
-		}
-
+		if (tokens[1].equals("rd")) p = FSPermissionType.PERMISSION_READ;
+		else if (tokens[1].equals("wr")) p = FSPermissionType.PERMISSION_WRITE;
+		else if (tokens[1].equals("rw")) p = FSPermissionType.PERMISSION_READ_WRITE;
+		else throw new InvalidArgumentsCommandException("Expected permission string: 'rd', 'wr' or 'rw'");
 		return new PathRevokeCommand(tokens[3], p, tokens[2]);
 	}
 
@@ -195,14 +186,11 @@ public abstract class CommandFactory {
 			throw new InvalidArgumentsCommandException("Need exactly a user permission and a user");
 
 		UserPermissionType p = null;
-		switch(tokens[1]) {
-			case "pw": p = UserPermissionType.PERMISSION_PASSWORD; break;
-			case "gr": p = UserPermissionType.PERMISSION_GRANT; break;
-			case "rv": p = UserPermissionType.PERMISSION_REVOKE; break;
-			case "rt": p = UserPermissionType.PERMISSION_ROOT; break;
-			default: throw new InvalidArgumentsCommandException("Expected permission string: 'pw', 'gr', 'rv' or 'rt'");
-		}
-
+		if (tokens[1].equals("pw")) p = UserPermissionType.PERMISSION_PASSWORD;
+		else if (tokens[1].equals("gr")) p = UserPermissionType.PERMISSION_GRANT;
+		else if (tokens[1].equals("rv")) p = UserPermissionType.PERMISSION_REVOKE;
+		else if (tokens[1].equals("rt")) p = UserPermissionType.PERMISSION_ROOT;
+		else throw new InvalidArgumentsCommandException("Expected permission string: 'pw', 'gr', 'rv' or 'rt'");
 		return new UserGrantCommand(tokens[2], p);
 	}
 
@@ -211,14 +199,11 @@ public abstract class CommandFactory {
 			throw new InvalidArgumentsCommandException("Need exactly a user permission and a user");
 
 		UserPermissionType p = null;
-		switch(tokens[1]) {
-			case "pw": p = UserPermissionType.PERMISSION_PASSWORD; break;
-			case "gr": p = UserPermissionType.PERMISSION_GRANT; break;
-			case "rv": p = UserPermissionType.PERMISSION_REVOKE; break;
-			case "rt": p = UserPermissionType.PERMISSION_ROOT; break;
-			default: throw new InvalidArgumentsCommandException("Expected permission string: 'pw', 'gr', 'rv' or 'rt'");
-		}
-
+		if (tokens[1].equals("pw")) p = UserPermissionType.PERMISSION_PASSWORD;
+		else if (tokens[1].equals("gr")) p = UserPermissionType.PERMISSION_GRANT;
+		else if (tokens[1].equals("rv")) p = UserPermissionType.PERMISSION_REVOKE;
+		else if (tokens[1].equals("rt")) p = UserPermissionType.PERMISSION_ROOT;
+		else throw new InvalidArgumentsCommandException("Expected permission string: 'pw', 'gr', 'rv' or 'rt'");
 		return new UserRevokeCommand(tokens[2], p);
 	}
 
