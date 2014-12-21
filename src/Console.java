@@ -16,10 +16,6 @@ public class Console {
 		activeConsole = defaultConsole;
 	}
 
-	public static void setConsole(InputStream in, OutputStream out) {
-		activeConsole = emulatedConsole(in, out);
-	}
-
 	public static AbstractConsole emulatedConsole(InputStream in, OutputStream out) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		PrintWriter writer = new PrintWriter(out, true);

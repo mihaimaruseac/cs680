@@ -16,11 +16,6 @@ class RealConsole extends AbstractConsole {
 	}
 
 	@Override
-	public Reader reader() {
-		return console.reader();
-	}
-
-	@Override
 	public String readLine() {
 		return console.readLine();
 	}
@@ -28,11 +23,6 @@ class RealConsole extends AbstractConsole {
 	@Override
 	public char[] readPassword() {
 		return console.readPassword();
-	}
-
-	@Override
-	public PrintWriter writer() {
-		return console.writer();
 	}
 
 	@Override

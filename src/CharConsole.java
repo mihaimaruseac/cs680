@@ -33,16 +33,6 @@ class CharConsole extends AbstractConsole {
 	}
 
 	@Override
-	public Reader reader() {
-		return reader;
-	}
-
-	@Override
-	public PrintWriter writer() {
-		return writer;
-	}
-
-	@Override
 	public void flush() {
 		writer.flush();
 	}
