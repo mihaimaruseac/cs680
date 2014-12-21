@@ -62,6 +62,7 @@
 			<classpath>
 				<pathelement location="${bin}"/>
 			</classpath>
+			<arg value="fileSystem"/>
 		</java>
 	</target>
 

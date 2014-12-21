@@ -42,22 +42,27 @@ public class Serializer {
 
 	private Cipher c;
 	private SecretKey key;
+	private String fName;
 
 	public Serializer() throws Exception {
+		this("default_filesystem_file");
+	}
+
+	public Serializer(String fName) throws Exception {
 		c = Cipher.getInstance("AES/CBC/PKCS5Padding");
 		key = new SecretKeySpec(k, 0, k.length, "AES");
+		this.fName = fName;
 	}
 
 	public void serialize() {
 		try {
 			AlgorithmParameterSpec paramSpec = new IvParameterSpec(iv);
 			c.init(Cipher.ENCRYPT_MODE, key, paramSpec);
-			DataOutputStream out = new DataOutputStream(new CipherOutputStream(new FileOutputStream("fs"), c));
+			DataOutputStream out = new DataOutputStream(new CipherOutputStream(new FileOutputStream(fName), c));
 			serializeUsers(out);
 			serializeFS(out);
 			out.close();
 		} catch (Exception e) {
-			e.printStackTrace();
 			TUIDisplay.simpleDisplayText("Error encountered while serializing :(");
 		}
 	}
@@ -65,7 +70,7 @@ public class Serializer {
 	public void deserialize() throws Exception {
 		AlgorithmParameterSpec paramSpec = new IvParameterSpec(iv);
 		c.init(Cipher.DECRYPT_MODE, key, paramSpec);
-		DataInputStream in = new DataInputStream(new CipherInputStream(new FileInputStream("fs"), c));
+		DataInputStream in = new DataInputStream(new CipherInputStream(new FileInputStream(fName), c));
 		deserializeUsers(in);
 		deserializeFS(in);
 		in.close();

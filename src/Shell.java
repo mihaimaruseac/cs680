@@ -47,7 +47,6 @@ public class Shell {
 				TUIDisplay.simpleDisplayText(e.getMessage());
 			} catch (Exception e) {
 				TUIDisplay.simpleDisplayText(e.toString());
-				e.printStackTrace();
 			} finally {
 				s.serialize();
 			}
@@ -56,11 +55,16 @@ public class Shell {
 
 	public static void main(String args[]) {
 		try {
-			Serializer s = new Serializer();
+			Serializer s = null;
+
+			if (args.length < 1)
+				s = new Serializer();
+			else
+				s = new Serializer(args[0]);
+
 			try {
 				s.deserialize();
 			} catch (Exception e) {
-				e.printStackTrace();
 				TUIDisplay.simpleDisplayText("Cannot initialize from serialized state, will reset");
 
 				ArrayList<User> users = new ArrayList<User>();
