@@ -78,5 +78,4 @@ public abstract class FSElement {
 	public abstract int getSize();
 	public abstract boolean isLeaf();
 	public abstract boolean isLink();
-	public abstract void accept(FSVisitor v);
 }

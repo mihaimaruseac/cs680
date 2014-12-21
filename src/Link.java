@@ -24,9 +24,4 @@ public class Link extends FSElement {
 	public FSElement getTarget() {
 		return target;
 	}
-
-	@Override
-	public void accept(FSVisitor v) {
-		v.visit(this);
-	}
 }

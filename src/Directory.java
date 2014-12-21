@@ -66,12 +66,4 @@ public class Directory extends FSElement {
 	public ArrayList<FSElement> getChildren() {
 		return children;
 	}
-
-	@Override
-	public void accept(FSVisitor v) {
-		v.visit(this);
-		for (FSElement f : children) {
-			f.accept(v);
-		}
-	}
 }

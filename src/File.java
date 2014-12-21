@@ -21,11 +21,6 @@ public class File extends FSElement {
 		return false;
 	}
 
-	@Override
-	public void accept(FSVisitor v) {
-		v.visit(this);
-	}
-
 	public String getContents() {
 		return contents;
 	}
