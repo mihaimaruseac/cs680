@@ -54,6 +54,7 @@ public class Shell {
 	}
 
 	public static void main(String args[]) {
+		Console.resetConsole();
 		try {
 			Serializer s = null;
 

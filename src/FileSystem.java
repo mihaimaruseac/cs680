@@ -28,6 +28,7 @@ public class FileSystem {
 	}
 
 	public void setUpUsers(ArrayList<User> users) {
+		this.availableUsers.clear();
 		for (User u : users)
 			this.availableUsers.put(u.getName(), u);
 	}
