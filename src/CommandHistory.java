@@ -28,6 +28,10 @@ public class CommandHistory {
 		return null;
 	}
 
+	public void clear() {
+		commands.clear();
+	}
+
 	public void printCommands() {
 		ArrayList<ArrayList<String>> columns = new ArrayList<ArrayList<String>>();
 		columns.add(new ArrayList<String>());

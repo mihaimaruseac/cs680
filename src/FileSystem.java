@@ -22,7 +22,7 @@ public class FileSystem {
 
 	public void setUp() {
 		loggedUsers.clear();
-		setUser(availableUsers.get("root"));
+		loggedUsers.add(availableUsers.get("root"));
 		setRoot(new Directory("root", null, getUser()));
 		setCurrent(getRoot());
 	}
