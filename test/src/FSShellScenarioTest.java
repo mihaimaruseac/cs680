@@ -49,6 +49,20 @@ public class FSShellScenarioTest {
 		assertThat(actualElems, is(expectedElems));
 	}
 
+	@Test
+	public void testScenario2() throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
+		ArrayList<String> cmds = new ArrayList<String>();
+		cmds.add("lsusers");
+		cmds.add("dir");
+		cmds.add("ls");
+		cmds.add("sort owner");
+		cmds.add("uperm root");
+
+		String expected = runScenario(cmds, "");
+		String actual = "";
+		assertThat(actual, is(expected));
+	}
+
 	private String runScenario(ArrayList<String> cmds, String input) throws InvalidCommandException, MultipleExceptionsException, UnsupportedEncodingException {
 		InputStream oldIn = System.in;
 		PrintStream oldOut = System.out;
