@@ -141,7 +141,7 @@ public class FileSystem {
 	}
 
 	public void displayPerms(User u) {
-		u.displayPerms();
+		TUIDisplay.arrayDisplayText(u.getPerms());
 	}
 
 	public FSPermissionType getUserPathPermission(FSElement e) {

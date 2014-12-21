@@ -28,13 +28,13 @@ public class User implements Comparable<User> {
 		return perms.contains(perm);
 	}
 
-	public void displayPerms() {
+	public ArrayList<String> getPerms() {
 		ArrayList<String> perms = new ArrayList<String>();
 
 		for (UserPermissionType upt : this.perms)
 			perms.add(upt.toString());
 
-		TUIDisplay.arrayDisplayText(perms);
+		return perms;
 	}
 
 	public void setPassword(String password) {
