@@ -8,21 +8,50 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.Class;
 import java.lang.reflect.Field;
+import java.lang.StringBuilder;
+import java.security.spec.AlgorithmParameterSpec;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import javax.crypto.Cipher;
 import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
+import javax.crypto.KeyGenerator;
 import javax.crypto.NullCipher;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
 public class Serializer {
-	public Serializer() {
+	private static byte[] iv = {
+		(byte)0x42, (byte)0x03, (byte)0x14, (byte)0x15,
+		(byte)0x24, (byte)0x30, (byte)0x41, (byte)0x51,
+		(byte)0x19, (byte)0x02, (byte)0x1C, (byte)0x85,
+		(byte)0xB6, (byte)0x46, (byte)0x37, (byte)0x01,
+	};
+
+	/* TODO: should be from a keystore, as well as root password but that's
+	 * more complex than the project already is.
+	 */
+	private static byte[] k = {
+		(byte)0x25, (byte)0x8C, (byte)0x66, (byte)0x61,
+		(byte)0x17, (byte)0x96, (byte)0xAF, (byte)0x4C,
+		(byte)0x46, (byte)0x09, (byte)0x99, (byte)0x9E,
+		(byte)0x7F, (byte)0x5A, (byte)0xEA, (byte)0xFB,
+	};
+
+	private Cipher c;
+	private SecretKey key;
+
+	public Serializer() throws Exception {
+		c = Cipher.getInstance("AES/CBC/PKCS5Padding");
+		key = new SecretKeySpec(k, 0, k.length, "AES");
 	}
 
 	public void serialize() {
 		try {
-			Cipher c = new NullCipher();
+			AlgorithmParameterSpec paramSpec = new IvParameterSpec(iv);
+			c.init(Cipher.ENCRYPT_MODE, key, paramSpec);
 			DataOutputStream out = new DataOutputStream(new CipherOutputStream(new FileOutputStream("fs"), c));
 			serializeUsers(out);
 			serializeFS(out);
@@ -34,7 +63,8 @@ public class Serializer {
 	}
 
 	public void deserialize() throws Exception {
-		Cipher c = new NullCipher();
+		AlgorithmParameterSpec paramSpec = new IvParameterSpec(iv);
+		c.init(Cipher.DECRYPT_MODE, key, paramSpec);
 		DataInputStream in = new DataInputStream(new CipherInputStream(new FileInputStream("fs"), c));
 		deserializeUsers(in);
 		deserializeFS(in);

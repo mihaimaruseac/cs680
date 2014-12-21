@@ -55,23 +55,27 @@ public class Shell {
 	}
 
 	public static void main(String args[]) {
-		Serializer s = new Serializer();
 		try {
-			s.deserialize();
+			Serializer s = new Serializer();
+			try {
+				s.deserialize();
+			} catch (Exception e) {
+				e.printStackTrace();
+				TUIDisplay.simpleDisplayText("Cannot initialize from serialized state, will reset");
+
+				ArrayList<User> users = new ArrayList<User>();
+
+				User root = new User("root", "TODO");
+				root.addPermission(UserPermissionType.PERMISSION_ROOT);
+				users.add(root);
+
+				FileSystem.getInstance().setUpUsers(users);
+				FileSystem.getInstance().setUp();
+			}
+
+			new Shell(s).run();
 		} catch (Exception e) {
-			e.printStackTrace();
-			TUIDisplay.simpleDisplayText("Cannot initialize from serialized state, will reset");
-
-			ArrayList<User> users = new ArrayList<User>();
-
-			User root = new User("root", "TODO");
-			root.addPermission(UserPermissionType.PERMISSION_ROOT);
-			users.add(root);
-
-			FileSystem.getInstance().setUpUsers(users);
-			FileSystem.getInstance().setUp();
+			TUIDisplay.simpleDisplayText("Impossible to start application. Check key configuration and serialized file");
 		}
-
-		new Shell(s).run();
 	}
 }
