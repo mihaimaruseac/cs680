@@ -31,11 +31,11 @@ public class Shell {
 		FileSystem fs = FileSystem.getInstance();
 		while (fs.hasMoreUsers()) {
 			String prompt = "[" + fs.getUser().getName() + " " + fs.getCurrent().getName() + "]> ";
-			Console.defaultConsole().printf(prompt);
-			Console.defaultConsole().flush();
+			Console.getConsole().printf(prompt);
+			Console.getConsole().flush();
 
 			try {
-				String line = Console.defaultConsole().readLine();
+				String line = Console.getConsole().readLine();
 				if (line == null) {
 					line = "exit";
 					TUIDisplay.simpleDisplayText("");

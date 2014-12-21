@@ -25,12 +25,12 @@ public abstract class EditUserCommand extends Command {
 	};
 
 	protected String readAndUpdatePassword() throws MultipleExceptionsException {
-		Console.defaultConsole().printf("Password: ");
-		Console.defaultConsole().flush();
-		String password = new String(Console.defaultConsole().readPassword());
-		Console.defaultConsole().printf("Confirm password: ");
-		Console.defaultConsole().flush();
-		String cfPassword = new String(Console.defaultConsole().readPassword());
+		Console.getConsole().printf("Password: ");
+		Console.getConsole().flush();
+		String password = new String(Console.getConsole().readPassword());
+		Console.getConsole().printf("Confirm password: ");
+		Console.getConsole().flush();
+		String cfPassword = new String(Console.getConsole().readPassword());
 
 		if (!password.equals(cfPassword))
 			throw new MultipleExceptionsException(new PasswordsDontMatchException());

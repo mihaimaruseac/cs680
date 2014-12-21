@@ -21,7 +21,7 @@ public abstract class EditFileCommand extends FileContentsCommand {
 
 		while (true) {
 			try {
-				String line = Console.defaultConsole().readLine();
+				String line = Console.getConsole().readLine();
 				if (line == null || line.length() == 0)
 					break;
 

@@ -6,9 +6,18 @@ import java.io.PrintWriter;
 
 public class Console {
 	private static AbstractConsole defaultConsole = (System.console() == null) ? emulatedConsole(System.in, System.out) : new RealConsole(System.console());
+	private static AbstractConsole activeConsole = defaultConsole;
 
-	public static AbstractConsole defaultConsole() {
+	public static AbstractConsole getConsole() {
 		return defaultConsole;
+	}
+
+	public static void setConsole() {
+		activeConsole = defaultConsole;
+	}
+
+	public static void setConsole(InputStream in, OutputStream out) {
+		activeConsole = emulatedConsole(in, out);
 	}
 
 	public static AbstractConsole emulatedConsole(InputStream in, OutputStream out) {
