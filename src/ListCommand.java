@@ -9,9 +9,9 @@ public abstract class ListCommand extends Command {
 		StringBuilder sb = new StringBuilder(base);
 		paths = new ArrayList<String>();
 
-		for (int i = 1; i < args.length; i++) {
-			paths.add(args[i]);
-			sb.append(" " + args[i]);
+		for (String s : args) {
+			paths.add(s);
+			sb.append(" " + s);
 		}
 
 		cmdLine = sb.toString();

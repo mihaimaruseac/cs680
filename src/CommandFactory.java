@@ -3,7 +3,7 @@ import java.util.Arrays;
 public abstract class CommandFactory {
 	public static Command getCommand(String cmd) throws InvalidCommandException {
 		String delims = "[ ]+";
-		String[] tokens = cmd.split(delims);
+		String[] tokens = cmd.trim().split(delims);
 
 		switch(tokens[0]) {
 			case "append": return buildAppendCommand(tokens);
@@ -77,7 +77,7 @@ public abstract class CommandFactory {
 	}
 
 	private static DirCommand buildDirCommand(String[] tokens) {
-		return new DirCommand(tokens);
+		return new DirCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 
 	private static SortCommand buildSortCommand(String[] tokens) throws InvalidArgumentsCommandException {
@@ -99,7 +99,7 @@ public abstract class CommandFactory {
 	}
 
 	private static LsCommand buildLsCommand(String[] tokens) {
-		return new LsCommand(tokens);
+		return new LsCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 
 	private static LsUserCommand buildLsUserCommand(String[] tokens) {
@@ -167,7 +167,7 @@ public abstract class CommandFactory {
 	}
 
 	private static FsPermsCommand buildPathPermsCommand(String[] tokens) {
-		return new FsPermsCommand(tokens);
+		return new FsPermsCommand(Arrays.copyOfRange(tokens, 1, tokens.length));
 	}
 
 	private static PWDCommand buildPWDCommand(String[] tokens) {

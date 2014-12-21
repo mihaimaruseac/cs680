@@ -3,7 +3,7 @@ public class MkLinkCommand extends MkCommand {
 	String targetName;
 
 	public MkLinkCommand(String target, String name) {
-		super(new String[]{name}, "ln", "rm");
+		super(new String[]{name}, "ln " + target, "rm");
 		targetName = target;
 	}
 
