@@ -11,6 +11,10 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
+import javax.crypto.NullCipher;
 
 public class Serializer {
 	public Serializer() {
@@ -18,17 +22,20 @@ public class Serializer {
 
 	public void serialize() {
 		try {
-			DataOutputStream out = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("fs")));
+			Cipher c = new NullCipher();
+			DataOutputStream out = new DataOutputStream(new CipherOutputStream(new FileOutputStream("fs"), c));
 			serializeUsers(out);
 			serializeFS(out);
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+			TUIDisplay.simpleDisplayText("Error encountered while serializing :(");
 		}
 	}
 
 	public void deserialize() throws Exception {
-		DataInputStream in = new DataInputStream(new BufferedInputStream(new FileInputStream("fs")));
+		Cipher c = new NullCipher();
+		DataInputStream in = new DataInputStream(new CipherInputStream(new FileInputStream("fs"), c));
 		deserializeUsers(in);
 		deserializeFS(in);
 		in.close();
