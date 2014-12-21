@@ -5,7 +5,7 @@ public abstract class TUIDisplay {
 	private static final int TUI_TEXT_WIDTH = 90;
 
 	public static void simpleDisplayText(String message) {
-		System.console().printf(message + "\n");
+		Console.defaultConsole().printf(message + "\n");
 	}
 
 	public static void arrayDisplayText(String[] messages) {
@@ -60,9 +60,9 @@ public abstract class TUIDisplay {
 				char[] bytes = new char[spaceRemaining];
 				Arrays.fill(bytes, ' ');
 				String padding = new String(bytes);
-				System.console().printf(toDisplay + padding);
+				Console.defaultConsole().printf(toDisplay + padding);
 			}
-			System.console().printf("\n");
+			Console.defaultConsole().printf("\n");
 		}
 	}
 

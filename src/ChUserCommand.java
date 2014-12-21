@@ -18,9 +18,9 @@ public class ChUserCommand extends Command {
 		try {
 			User user = fs.getUserByName(userName);
 
-			System.console().printf("Password: ");
-			System.console().flush();
-			String password = new String(System.console().readPassword());
+			Console.defaultConsole().printf("Password: ");
+			Console.defaultConsole().flush();
+			String password = new String(Console.defaultConsole().readPassword());
 
 			if (fs.checkPassword(user, password))
 				fs.setUser(user);
